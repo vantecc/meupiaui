@@ -8,7 +8,7 @@ import TelaCadastro from '../pages/TelaCadastro';
 import TelaDashboard from '../pages/TelaDashboard';
 import TelaMunicipios from '../pages/TelaMunicipios';
 import TelaPerfil from '../pages/TelaPerfil';
-
+import TelaConfiguracoes from '../pages/TelaConfiguracoes'; // ✅ Aqui
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +16,7 @@ export default function AppRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={__DEV__ ? 'Perfil' : 'TelaAbertura'}
+        initialRouteName={__DEV__ ? 'Configuracoes' : 'TelaAbertura'}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="TelaAbertura" component={TelaAbertura} />
@@ -25,7 +25,7 @@ export default function AppRoutes() {
         <Stack.Screen name="Dashboard" component={TelaDashboard} />
         <Stack.Screen name="Municipios" component={TelaMunicipios} />
         <Stack.Screen name="Perfil" component={TelaPerfil} />
-
+        <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
