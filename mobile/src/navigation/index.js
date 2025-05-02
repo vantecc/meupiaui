@@ -18,7 +18,11 @@ export default function AppRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
+<<<<<<< HEAD
         initialRouteName={__DEV__ ? 'Perfil' : 'TelaAbertura'}
+=======
+        initialRouteName={__DEV__ ? 'Municipios' : 'TelaAbertura'}
+>>>>>>> 544b02d8c2db1b73b24beb9348c760338211395f
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="TelaAbertura" component={TelaAbertura} />
