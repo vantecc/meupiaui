@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import styles from './style';
 import BackButton from '../../components/BackButton';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function TelaPerfil() {
   return (
@@ -28,10 +29,7 @@ export default function TelaPerfil() {
                 style={styles.profileImage}
               />
               <TouchableOpacity style={styles.editIconWrapper}>
-                <Image
-                  source={require('../../assets/iconeeditor.png')}
-                  style={styles.editIcon}
-                />
+                <Ionicons name='images' color={'#fff'} size={20}/>
               </TouchableOpacity>
             </View>
 
@@ -47,12 +45,12 @@ export default function TelaPerfil() {
               />
               <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder="Sobrenome"
                 placeholderTextColor="#132e209e"
               />
               <TextInput
                 style={styles.input}
-                placeholder="Nova senha"
+                placeholder="Email"
                 placeholderTextColor="#132e209e"
                 secureTextEntry
               />

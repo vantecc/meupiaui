@@ -40,26 +40,27 @@ export default StyleSheet.create({
 
   imageWrapper: {
     position: 'relative',
-    width: 260,
-    height: 260,
     marginBottom: 12,
   },
 
   profileImage: {
-    width: 260,
-    height: 260,
-    borderRadius: 130,
+    width: 160,
+    height: 160,
   },
 
   editIconWrapper: {
     position: 'absolute',
-    bottom: 0,
-    right: 40,
+    bottom: -10,
+    right: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1a2821'
   },
 
   editIcon: {
-    width: 55,
-    height: 40,
     resizeMode: 'contain',
   },
 
@@ -117,6 +118,6 @@ export default StyleSheet.create({
   buttonText: {
     fontSize: 17,
     fontWeight: '500',
-    color: '#1a2821',
+    color: '1#1a282',
   },
 });
