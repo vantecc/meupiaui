@@ -14,20 +14,18 @@ import useGoogleAuth from '../../hooks/useGoogleAuth';
 
 export default function Cadastro({ navigation }) {
   const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
-  const [telefone, setTelefone] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const { loginWithGooglePrompt } = useGoogleAuth(navigation);
 
   const handleRegister = async () => {
-    if (!nome || !sobrenome || !telefone || !email || !senha) {
+    if (!nome || !email || !senha) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       return;
     }
 
-    const name = `${nome}${sobrenome}`.replace(/\s/g, ''); // remove espaços
+    const name = nome.replace(/\s/g, '');
 
     console.log({ name, email, password: senha });
 
@@ -67,30 +65,12 @@ export default function Cadastro({ navigation }) {
         <Text style={styles.subtitle}>Criar conta</Text>
       </View>
 
-      <View style={styles.nameRow}>
-        <TextInput
-          style={styles.inputHalf}
-          placeholder="Nome"
-          placeholderTextColor="#132e209e"
-          value={nome}
-          onChangeText={setNome}
-        />
-        <TextInput
-          style={styles.inputHalf}
-          placeholder="Sobrenome"
-          placeholderTextColor="#132e209e"
-          value={sobrenome}
-          onChangeText={setSobrenome}
-        />
-      </View>
-
       <TextInput
         style={styles.inputFull}
-        placeholder="Telefone"
+        placeholder="Nome"
         placeholderTextColor="#132e209e"
-        value={telefone}
-        onChangeText={setTelefone}
-        keyboardType="phone-pad"
+        value={nome}
+        onChangeText={setNome}
       />
       <TextInput
         style={styles.inputFull}
