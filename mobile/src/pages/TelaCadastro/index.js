@@ -9,39 +9,19 @@ import {
   Alert,
 } from 'react-native';
 import styles from './style';
-import { registerUser } from '../../api/auth';
+import { registerUser } from '../../api/services';
 import useGoogleAuth from '../../hooks/useGoogleAuth';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Cadastro({ navigation }) {
-  const [nome, setNome] = useState('');
+export default function Cadastro() {
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigation = useNavigation()
 
   const { loginWithGooglePrompt } = useGoogleAuth(navigation);
 
-  const handleRegister = async () => {
-    if (!nome || !email || !senha) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-      return;
-    }
 
-    const name = nome.replace(/\s/g, '');
-
-    console.log({ name, email, password: senha });
-
-    try {
-      const user = await registerUser({ name, email, password: senha });
-      Alert.alert('Cadastro realizado', `Seja muito bem vindo(a)`);
-      navigation.navigate('Login');
-    } catch (error) {
-      console.log("Erro no cadastro:", error);
-      const msg =
-        error?.message?.includes('{') && error.message.length < 300
-          ? JSON.stringify(JSON.parse(error.message), null, 2)
-          : 'Não foi possível cadastrar. Verifique os dados.';
-      Alert.alert('Erro ao cadastrar', msg);
-    }
-  };
 
   const socialIcons = {
     Facebook: require('../../assets/facebook.png'),
@@ -67,13 +47,6 @@ export default function Cadastro({ navigation }) {
 
       <TextInput
         style={styles.inputFull}
-        placeholder="Nome"
-        placeholderTextColor="#132e209e"
-        value={nome}
-        onChangeText={setNome}
-      />
-      <TextInput
-        style={styles.inputFull}
         placeholder="Email"
         placeholderTextColor="#132e209e"
         value={email}
@@ -85,13 +58,18 @@ export default function Cadastro({ navigation }) {
         style={styles.inputFull}
         placeholder="Senha"
         placeholderTextColor="#132e209e"
-        value={senha}
-        onChangeText={setSenha}
+        value={password}
+        onChangeText={setPassword}
         secureTextEntry
       />
+      <TextInput
+        style={styles.inputFull}
+        placeholder="Confirme sua senha"
+        placeholderTextColor="#132e209e"
+      />
 
-      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-        <Text style={styles.registerText}>Cadastrar</Text>
+      <TouchableOpacity style={styles.registerButton}>
+        <Text style={styles.registerText} onPress={() => registerUser(email, email, password)}>Cadastrar</Text>
       </TouchableOpacity>
 
       <Text style={styles.terms}>

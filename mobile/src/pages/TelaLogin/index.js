@@ -13,9 +13,13 @@ import { loginUser as loginRequest } from '../../api/auth'; // renomeamos para e
 import useGoogleAuth from '../../hooks/useGoogleAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../api/auth';
+import { loginUser } from '../../api/services';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Login({ navigation }) {
- 
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigation = useNavigation()
 
   const socialIcons = {
     Facebook: require('../../assets/facebook.png'),
@@ -45,7 +49,7 @@ export default function Login({ navigation }) {
         <View style={styles.card}>
           <TextInput
             style={styles.input}
-            placeholder="Digite seu nome e sobrenome sem espaço"
+            placeholder="Email"
             placeholderTextColor="#132e209e"
             value={email}
             onChangeText={setEmail}
@@ -57,11 +61,11 @@ export default function Login({ navigation }) {
             placeholder="Digite sua senha"
             placeholderTextColor="#132e209e"
             secureTextEntry
-            value={senha}
-            onChangeText={setSenha}
+            value={password}
+            onChangeText={setPassword}
           />
 
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => loginUser(email, password, navigation)}>
             <Text style={styles.loginButtonText}>Conectar</Text>
           </TouchableOpacity>
         </View>
@@ -71,7 +75,6 @@ export default function Login({ navigation }) {
             <TouchableOpacity
               key={i}
               style={[styles.socialButton, styles[`btn${provider}`]]}
-              onPress={provider === 'Google' ? loginWithGooglePrompt : undefined}
             >
               <View style={styles.socialContent}>
                 <Image source={socialIcons[provider]} style={styles.socialIcon} />

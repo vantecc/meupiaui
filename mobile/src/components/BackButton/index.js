@@ -8,7 +8,7 @@ export default function BackButton({ top = 20, left = 16 }) {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Dashboard')}
+      onPress={() => navigation.goBack()}
       style={[styles.container, { top, left }]}
     >
       <Image

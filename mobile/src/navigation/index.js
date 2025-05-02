@@ -11,13 +11,14 @@ import TelaPerfil from '../pages/TelaPerfil';
 import TelaConfiguracoes from '../pages/TelaConfiguracoes';
 import TelaFavoritos from '../pages/TelaFavoritos'; // ✅ Novo import
 
+
 const Stack = createNativeStackNavigator();
 
 export default function AppRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={__DEV__ ? 'Cadastro' : 'TelaAbertura'}
+        initialRouteName={__DEV__ ? 'Login' : 'TelaAbertura'}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="TelaAbertura" component={TelaAbertura} />
