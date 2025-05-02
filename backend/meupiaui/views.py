@@ -24,6 +24,11 @@ class TouristPointViewSet(viewsets.ModelViewSet):
 class FavoriteViewSet(viewsets.ModelViewSet):
     serializer_class = FavoriteSerializer
     permission_classes = [IsAuthenticated]
+    queryset = Favorite.objects.all()
+
+    def get_queryset(self):
+        return Favorite.objects.filter(user=self.request.user)
+
         
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -33,6 +38,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
