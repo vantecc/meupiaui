@@ -1,7 +1,4 @@
-// src/pages/TelaDashboard/index.js
-import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -15,22 +12,19 @@ import AttractionCard from '../../components/AttractionCard';
 import img1 from '../../assets/serracapi.png';
 import img2 from '../../assets/setecidades.png';
 import { FontAwesome } from '@expo/vector-icons';
-import { getTouristPoints } from '../../api/services';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function DashboardScreen() {
+  const [data, setData] = useState([]);
 
-  const [data, setData] = useState([])
-
-
-  useEffect(()=>{
-    async function savePoints(){
-      const response = await getTouristPoints()
-      setData(response)
-    }
-
-    savePoints()
-    
-  }, [])
+  // 🔧 Simulando dados fake no lugar do backend
+  useEffect(() => {
+    const fakeData = [
+      { id: 1, name: 'Serra da Capivara' },
+      { id: 2, name: 'Sete Cidades' },
+    ];
+    setData(fakeData);
+  }, []);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -44,28 +38,9 @@ export default function DashboardScreen() {
     { name: 'Gastronomia' },
   ];
 
-  const attractions = [
-    {
-      id: 1,
-      name: 'Serra da Capivara',
-      category: 'Natureza',
-      rating: 5,
-      image: img1,
-      bookmarked: true,
-    },
-    {
-      id: 2,
-      name: 'Parque Nacional de Sete Cidades',
-      category: 'História',
-      rating: 4.5,
-      image: img2,
-      bookmarked: false,
-    },
-  ];
-
   return (
     <View style={{ flex: 1 }}>
-      {/* Header com imagem de fundo */}
+      {/* Header */}
       <View style={styles.headerContainer}>
         <View style={styles.headerShadow}>
           <Image
@@ -83,7 +58,7 @@ export default function DashboardScreen() {
       </View>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {/* Search Bar */}
+        {/* Search */}
         <View style={styles.searchContainer}>
           <View style={{ position: 'relative' }}>
             <FontAwesome
@@ -116,9 +91,11 @@ export default function DashboardScreen() {
           </ScrollView>
         </View>
 
-        {/* Lista completa de municípios */}
+        {/* Botão explorar */}
         <TouchableOpacity style={styles.exploreButton}>
-          <Text style={styles.exploreText}>{data.name}</Text>
+          <Text style={styles.exploreText}>
+            {data[0]?.name || 'Explorar pontos turísticos'}
+          </Text>
         </TouchableOpacity>
 
         {/* Título da seção */}
@@ -127,26 +104,28 @@ export default function DashboardScreen() {
         </View>
 
         {/* Carrossel */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.carousel}
-          contentContainerStyle={{ paddingRight: 20 }}
-        >
-          {data.map((item) => (
-            <AttractionCard
-              key={item.id}
-              name={item.name}
-              category={'Categoria'}
-              image={img1}
-              rating={4}
-              bookmarked={true}
-            />
-          ))}
-        </ScrollView>
+        {data.length > 0 && (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.carousel}
+            contentContainerStyle={{ paddingRight: 20 }}
+          >
+            {data.map((item) => (
+              <AttractionCard
+                key={item.id}
+                name={item.name}
+                category={'Categoria'}
+                image={img1}
+                rating={4}
+                bookmarked={true}
+              />
+            ))}
+          </ScrollView>
+        )}
       </ScrollView>
 
-      {/* Footer com navegação dinâmica */}
+      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.footerButton}
