@@ -22,11 +22,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
-        extra_kwargs = {
-            'user': {'read_only': True}
-        }
         model = Profile
-        fields = ['id', 'first_name', 'last_name', 'image']
+        fields = ['first_name', 'last_name', 'image']
 
 class FavoriteSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='point.name', read_only=True)

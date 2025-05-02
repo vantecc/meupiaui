@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,36 @@ import {
 import styles from './style';
 import BackButton from '../../components/BackButton';
 import { Ionicons } from '@expo/vector-icons';
+import { launchImageLibrary } from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+import { createProfile } from '../../api/services';
 
 export default function TelaPerfil() {
+  const [FirstName, setFirstName] = useState('')
+  const [LastName, setLastName] = useState('')
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const pickImage = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permissão para acessar a galeria é necessária!');
+      return;
+    }
+  
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+  
+    if (result.assets && result.assets.length > 0) {
+      const image = result.assets[0];
+      console.log('Imagem selecionada:', image);
+      setSelectedImage(image);
+      console.log(image)
+    }
+  };
+
   return (
     <View style={styles.container}>
       <BackButton />
@@ -25,11 +53,15 @@ export default function TelaPerfil() {
           <View style={styles.profileSection}>
             <View style={styles.imageWrapper}>
               <Image
-                source={require('../../assets/smiling.png')}
+                source={
+                    selectedImage
+                    ? { uri: selectedImage.uri }
+                    : require('../../assets/smiling.png')
+                }
                 style={styles.profileImage}
               />
-              <TouchableOpacity style={styles.editIconWrapper}>
-                <Ionicons name='images' color={'#fff'} size={20}/>
+              <TouchableOpacity style={styles.editIconWrapper} onPress={pickImage}>
+                <Ionicons name='images' color={'#fff'} size={20} />
               </TouchableOpacity>
             </View>
 
@@ -42,11 +74,13 @@ export default function TelaPerfil() {
                 style={styles.input}
                 placeholder="Nome"
                 placeholderTextColor="#132e209e"
+                onChangeText={setFirstName}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Sobrenome"
                 placeholderTextColor="#132e209e"
+                onChangeText={setLastName}
               />
               <TextInput
                 style={styles.input}
@@ -59,7 +93,7 @@ export default function TelaPerfil() {
         </View>
 
         <View style={styles.footerButtons}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => createProfile(FirstName, LastName)}>
             <Text style={styles.buttonText}>Salvar alterações</Text>
           </TouchableOpacity>
 

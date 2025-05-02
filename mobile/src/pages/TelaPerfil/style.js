@@ -46,6 +46,7 @@ export default StyleSheet.create({
   profileImage: {
     width: 160,
     height: 160,
+    borderRadius: 160,
   },
 
   editIconWrapper: {
