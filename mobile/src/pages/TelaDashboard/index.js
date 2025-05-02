@@ -9,15 +9,13 @@ import {
 } from 'react-native';
 import styles from './style';
 import AttractionCard from '../../components/AttractionCard';
+import FooterNavigation from '../../components/FooterNavigation';
 import img1 from '../../assets/serracapi.png';
-import img2 from '../../assets/setecidades.png';
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function DashboardScreen() {
   const [data, setData] = useState([]);
 
-  // 🔧 Simulando dados fake no lugar do backend
   useEffect(() => {
     const fakeData = [
       { id: 1, name: 'Serra da Capivara' },
@@ -25,12 +23,6 @@ export default function DashboardScreen() {
     ];
     setData(fakeData);
   }, []);
-
-  const navigation = useNavigation();
-  const route = useRoute();
-
-  const isDashboard = route.name === 'Dashboard';
-  const isMunicipios = route.name === 'Municipios';
 
   const categories = [
     { name: 'Natureza' },
@@ -58,7 +50,6 @@ export default function DashboardScreen() {
       </View>
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {/* Search */}
         <View style={styles.searchContainer}>
           <View style={{ position: 'relative' }}>
             <FontAwesome
@@ -75,7 +66,7 @@ export default function DashboardScreen() {
           </View>
         </View>
 
-        {/* Categories */}
+
         <View style={{ alignItems: 'center' }}>
           <ScrollView
             horizontal
@@ -91,19 +82,18 @@ export default function DashboardScreen() {
           </ScrollView>
         </View>
 
-        {/* Botão explorar */}
+
         <TouchableOpacity style={styles.exploreButton}>
           <Text style={styles.exploreText}>
             {data[0]?.name || 'Explorar pontos turísticos'}
           </Text>
         </TouchableOpacity>
 
-        {/* Título da seção */}
+
         <View style={styles.sectionTitle}>
           <Text style={styles.sectionTitleText}>Mais Visitados</Text>
         </View>
 
-        {/* Carrossel */}
         {data.length > 0 && (
           <ScrollView
             horizontal
@@ -115,7 +105,7 @@ export default function DashboardScreen() {
               <AttractionCard
                 key={item.id}
                 name={item.name}
-                category={'Categoria'}
+                category="Categoria"
                 image={img1}
                 rating={4}
                 bookmarked={true}
@@ -125,37 +115,7 @@ export default function DashboardScreen() {
         )}
       </ScrollView>
 
-      {/* Footer */}
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => navigation.navigate('Dashboard')}
-        >
-          <FontAwesome name="home" size={24} color={isDashboard ? '#0f9d58' : '#999'} />
-          <Text style={[styles.footerLabel, { color: isDashboard ? '#0f9d58' : '#999' }]}>
-            Home
-          </Text>
-        </TouchableOpacity>
-
-        <View style={styles.centerButtonWrapper}>
-          <TouchableOpacity onPress={() => console.log('Botão central clicado')}>
-            <Image
-              source={require('../../assets/mainbutton.png')}
-              style={styles.bussolaIcon}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => navigation.navigate('Municipios')}
-        >
-          <FontAwesome name="map" size={24} color={isMunicipios ? '#0f9d58' : '#999'} />
-          <Text style={[styles.footerLabel, { color: isMunicipios ? '#0f9d58' : '#999' }]}>
-            Municípios
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <FooterNavigation />
     </View>
   );
 }

@@ -1,5 +1,3 @@
-// src/components/FooterNavigation/style.js
-
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -28,7 +26,7 @@ export default StyleSheet.create({
   },
   footerLabel: {
     fontSize: 15,
-    marginTop: 6,
+    marginTop: -9,
     color: '#0f9d58',
     textAlign: 'center',
   },
@@ -40,6 +38,11 @@ export default StyleSheet.create({
   bussolaIcon: {
     width: 88,
     height: 88,
+    resizeMode: 'contain',
+  },
+  footerIcon: {
+    width: 45,
+    height: 45,
     resizeMode: 'contain',
   },
 });

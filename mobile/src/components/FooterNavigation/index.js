@@ -3,13 +3,15 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import styles from './style';
-import { FontAwesome } from '@expo/vector-icons';
 
 export default function FooterNavigation() {
   return (
     <View style={styles.footer}>
       <TouchableOpacity style={styles.footerButton}>
-        <FontAwesome name="home" size={24} color="#0f9d58" />
+        <Image
+          source={require('../../assets/iconehomepiaui.png')}
+          style={styles.footerIcon}
+        />
         <Text style={styles.footerLabel}>Home</Text>
       </TouchableOpacity>
 
@@ -23,10 +25,12 @@ export default function FooterNavigation() {
       </View>
 
       <TouchableOpacity style={styles.footerButton}>
-        <FontAwesome name="map" size={24} color="#999" />
+        <Image
+          source={require('../../assets/iconepiauimapa.png')} 
+          style={styles.footerIcon}
+        />
         <Text style={[styles.footerLabel, { color: '#999' }]}>Municípios</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
