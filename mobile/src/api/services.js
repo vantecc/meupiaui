@@ -10,6 +10,16 @@
         }
     }
 
+    export async function getCategories() {
+        try {
+            const response = await api.get('/categories/')
+            console.log('CATEGORIAS CARREGADAS COM SUCESSO!')
+            return response.data
+        } catch (error) {
+            alert('ERRO AO CARREGAR CATEGORIAS')
+        }
+    }
+
     export async function loginUser(username, password, navigation) {
 
         if (!username || !password) {

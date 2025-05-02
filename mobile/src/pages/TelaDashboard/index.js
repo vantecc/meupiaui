@@ -12,9 +12,11 @@ import AttractionCard from '../../components/AttractionCard';
 import FooterNavigation from '../../components/FooterNavigation';
 import img1 from '../../assets/serracapi.png';
 import { FontAwesome } from '@expo/vector-icons';
+import { getCategories } from '../../api/services';
 
 export default function DashboardScreen() {
   const [data, setData] = useState([]);
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     const fakeData = [
@@ -24,11 +26,15 @@ export default function DashboardScreen() {
     setData(fakeData);
   }, []);
 
-  const categories = [
-    { name: 'Natureza' },
-    { name: 'História' },
-    { name: 'Gastronomia' },
-  ];
+  useEffect(() => {
+    async function saveCategories() {
+      const result = await getCategories()
+      setCategories(result)
+    }
+
+    saveCategories();
+  }, [])
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -49,7 +55,11 @@ export default function DashboardScreen() {
         </View>
       </View>
 
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.searchContainer}>
           <View style={{ position: 'relative' }}>
             <FontAwesome
@@ -67,20 +77,19 @@ export default function DashboardScreen() {
         </View>
 
 
-        <View style={{ alignItems: 'center' }}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.categories}
-            contentContainerStyle={{ gap: 15, paddingHorizontal: 20 }}
-          >
+          <View style={styles.categoriesArea}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.categories}
+        >
             {categories.map((cat, index) => (
               <TouchableOpacity key={index} style={styles.categoryBadge}>
                 <Text style={styles.categoryText}>{cat.name}</Text>
               </TouchableOpacity>
             ))}
-          </ScrollView>
-        </View>
+        </ScrollView>
+          </View>
 
 
         <TouchableOpacity style={styles.exploreButton}>

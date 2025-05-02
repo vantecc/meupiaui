@@ -57,15 +57,24 @@ export default StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
+  categoriesArea: {
+
+    width: '100%',
+    flexDirection: 'row',
+  },
   categories: {
-    marginBottom: 24,
+    width: '100%',
+    paddingLeft: 20,
+    paddingVertical: 10,
+    
   },
   categoryBadge: {
     backgroundColor: '#e5f5f0',
     borderRadius: 20,
     paddingVertical: 8,
     paddingHorizontal: 15,
-    marginRight: 10,
+    marginRight: 15,
+    alignSelf: 'center',
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
