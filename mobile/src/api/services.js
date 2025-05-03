@@ -11,7 +11,7 @@ export async function getTouristPoints() {
     }
 }
 
-export async function createProfile(first_name, last_name, imageObj, token) {
+export async function createProfile(first_name, last_name, imageObj, token, navigation) {
     const formData = new FormData();
     formData.append('first_name', first_name);
     formData.append('last_name', last_name);
@@ -31,7 +31,7 @@ export async function createProfile(first_name, last_name, imageObj, token) {
                 'Authorization': `Token ${token}`
             },
         });
-        alert('Perfil atualizado com sucesso!');
+        navigation.navigate('PerfilInfo');
         console.log(response.data);
     } catch (e) {
         alert('Erro ao criar perfil.');
@@ -44,7 +44,7 @@ export async function getCategories() {
     try {
         const response = await api.get('/categories/')
         console.log('CATEGORIAS CARREGADAS COM SUCESSO!')
-        
+
         return response.data
     } catch (error) {
         alert('ERRO AO CARREGAR CATEGORIAS')
@@ -60,20 +60,20 @@ export async function loginUser(username, password, navigation) {
 
     try {
         const response = await api.post('/login/', { username, password })
-         await AsyncStorage.setItem('userToken', response.data.token)
-         const token = response.data.token
+        await AsyncStorage.setItem('userToken', response.data.token)
+        const token = response.data.token
 
-         const result = await api.get('/has-profile/', {
+        const result = await api.get('/has-profile/', {
             headers: {
                 Authorization: `Token ${token}`
             }
-         })
+        })
 
-         if (result.data.has_profile){
+        if (result.data.has_profile) {
             navigation.navigate('Dashboard');
-         } else {
+        } else {
             navigation.navigate('Perfil')
-         }
+        }
     } catch (error) {
         alert('Usuário ou senha incorretos!')
     }

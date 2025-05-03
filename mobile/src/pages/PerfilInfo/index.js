@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator, SafeAreaView } from 'react-native';
 import styles from './style';
 import BackButton from '../../components/BackButton';
 import { Ionicons } from '@expo/vector-icons';
@@ -21,36 +14,40 @@ export default function PerfilInfo() {
   const [lastName, setLastName] = useState('')
   const [selectedImage, setSelectedImage] = useState(null);
   const [token, setToken] = useState('')
-  const [profile, setProfile] = useState('')
+  const [profile, setProfile] = useState(false)
 
   useEffect(() => {
-    
+
   }, []);
 
   useEffect(() => {
     async function getProfile() {
-      const savedToken = AsyncStorage.getItem('userToken').then(setToken);
-      if(savedToken) {
+      
+      try {
+        const savedToken = await AsyncStorage.getItem('userToken')
+        if (!savedToken) {
+          console.log('Token não encontrado!')
+          return;
+        }
+
         setToken(savedToken)
 
-        try {
-          const response = await api.get('/profile/', {
-            headers: {
-              Authorization: `Token ${token}`,
-            }
-          })
-          console.log(response.data)
-          setProfile(response.data)
-        } catch (error) {
-          alert('Erro ao buscar perfil')
-        }
+        const response = await api.get('/profile/', {
+          headers: {
+            Authorization: `Token ${savedToken}`,
+          }
+        })
+        console.log(response.data)
+        setProfile(response.data)
+      } catch (error) {
+        alert('Erro ao buscar perfil')
       }
     }
 
     getProfile();
   }, []);
 
-  
+
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -58,13 +55,13 @@ export default function PerfilInfo() {
       alert('Permissão para acessar a galeria é necessária!');
       return;
     }
-  
+
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
-  
+
     if (result.assets && result.assets.length > 0) {
       const image = result.assets[0];
       console.log('Imagem selecionada:', image);
@@ -73,74 +70,92 @@ export default function PerfilInfo() {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <BackButton />
 
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Meu Perfil</Text>
-      </View>
+  if (profile && profile[0]) {
+    return (
+      <View style={styles.container}>
+        <BackButton />
 
-      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-        <View style={styles.middleWrapper}>
-          <View style={styles.profileSection}>
-            <View style={styles.imageWrapper}>
-              <Image
-                source={
-                  selectedImage 
-                  ? { uri: selectedImage.uri }  // Se a imagem for selecionada, mostra ela
-                  : profile && profile[0]?.image  // Se tiver um perfil e uma imagem, mostra a imagem do perfil
-                    ? { uri: profile[0].image }  
-                    : require('../../assets/smiling.png')
-                }
-                style={styles.profileImage}
-              />
-              <TouchableOpacity style={styles.editIconWrapper} onPress={pickImage}>
-                <Ionicons name='images' color={'#fff'} size={20} />
-              </TouchableOpacity>
-            </View>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Meu Perfil</Text>
+        </View>
 
-            <Text style={styles.name}>
-              {profile && profile[0].first_name ? profile[0].first_name : 'Nome'}
+        <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+          <View style={styles.middleWrapper}>
+            <View style={styles.profileSection}>
+              <View style={styles.imageWrapper}>
+                <Image
+                  source={
+                    selectedImage
+                      ? { uri: selectedImage.uri }  // Se a imagem for selecionada, mostra ela
+                      : profile && profile[0]?.image  // Se tiver um perfil e uma imagem, mostra a imagem do perfil
+                        ? { uri: profile[0].image }
+                        : require('../../assets/smiling.png')
+                  }
+                  style={styles.profileImage}
+                />
+                <TouchableOpacity style={styles.editIconWrapper} onPress={pickImage}>
+                  <Ionicons name='images' color={'#fff'} size={20} />
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.name}>
+                {profile && profile[0].first_name ? profile[0].first_name : 'Nome'}
               </Text>
-            {/* <Text style={styles.subtitle}>Edite suas informações</Text> */}
-            <Text style={styles.email}>
-            {profile && profile[0].email ? profile[0].email : 'Insira seu email'}
-            </Text>
+              {/* <Text style={styles.subtitle}>Edite suas informações</Text> */}
+              <Text style={styles.email}>
+                {profile && profile[0].email ? profile[0].email : 'Insira seu email'}
+              </Text>
 
-            <View style={styles.inputs}>
-              {/* <TextInput
+              <View style={styles.inputs}>
+                {/* <TextInput
                 style={styles.input}
                 placeholder="Nome"
                 placeholderTextColor="#132e209e"
                 onChangeText={setFirstName}
               /> */}
-              {/* <TextInput
+                {/* <TextInput
                 style={styles.input}
                 placeholder="Sobrenome"
                 placeholderTextColor="#132e209e"
                 onChangeText={setLastName}
               /> */}
-              {/* <TextInput
+                {/* <TextInput
                 style={styles.input}
                 placeholder="Email"
                 placeholderTextColor="#132e209e"
                 secureTextEntry
               /> */}
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.footerButtons}>
-          {/* <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token)}>
+          <View style={styles.footerButtons}>
+            {/* <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token)}>
             <Text style={styles.buttonText}>Salvar alterações</Text>
           </TouchableOpacity> */}
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sair da conta</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
-  );
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Sair da conta</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
+    );
+  } else {
+    return(
+      <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 15}}>
+        
+        <ActivityIndicator size={60} color="#1a2821" />
+        <ActivityIndicator size={30} color="#0f9d58" />
+        <ActivityIndicator size={60} color="#1a2821" />
+        <ActivityIndicator size={30} color="#0f9d58" />
+        <ActivityIndicator size={60} color="#1a2821" />
+        
+      </SafeAreaView>
+    );
+  }
+
+
+
 }

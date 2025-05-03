@@ -14,12 +14,15 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { createProfile } from '../../api/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 export default function TelaPerfil() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [selectedImage, setSelectedImage] = useState(null);
   const [token, setToken] = useState('')
+
+  const navigation = useNavigation()
 
   useEffect(() => {
     AsyncStorage.getItem('userToken').then(setToken);
@@ -100,7 +103,7 @@ export default function TelaPerfil() {
         </View>
 
         <View style={styles.footerButtons}>
-          <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token)}>
+          <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token, navigation)}>
             <Text style={styles.buttonText}>Salvar alterações</Text>
           </TouchableOpacity>
 
