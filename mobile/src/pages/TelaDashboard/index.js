@@ -13,10 +13,13 @@ import FooterNavigation from '../../components/FooterNavigation';
 import img1 from '../../assets/serracapi.png';
 import { FontAwesome } from '@expo/vector-icons';
 import { getCategories } from '../../api/services';
+import { useNavigation } from '@react-navigation/native';
 
 export default function DashboardScreen() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([])
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fakeData = [
@@ -29,7 +32,11 @@ export default function DashboardScreen() {
   useEffect(() => {
     async function saveCategories() {
       const result = await getCategories()
-      setCategories(result)
+      if (Array.isArray(result)) {
+        setCategories(result);
+      } else {
+        setCategories([]); // evita crash se algo deu errado
+      }
     }
 
     saveCategories();

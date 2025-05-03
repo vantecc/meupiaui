@@ -3,8 +3,11 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import styles from './style';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FooterNavigation() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.footer}>
       <TouchableOpacity style={styles.footerButton}>
@@ -16,7 +19,7 @@ export default function FooterNavigation() {
       </TouchableOpacity>
 
       <View style={styles.centerButtonWrapper}>
-        <TouchableOpacity onPress={() => console.log('Botão central clicado')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PerfilInfo')}>
           <Image
             source={require('../../assets/mainbutton.png')}
             style={styles.bussolaIcon}

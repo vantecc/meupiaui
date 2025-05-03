@@ -8,6 +8,7 @@ import TelaCadastro from '../pages/TelaCadastro';
 import TelaDashboard from '../pages/TelaDashboard';
 import TelaMunicipios from '../pages/TelaMunicipios';
 import TelaPerfil from '../pages/TelaPerfil';
+import PerfilInfo from '../pages/PerfilInfo';
 import TelaConfiguracoes from '../pages/TelaConfiguracoes';
 import TelaFavoritos from '../pages/TelaFavoritos'; // ✅ Novo import
 
@@ -18,11 +19,7 @@ export default function AppRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-<<<<<<< HEAD
-        initialRouteName={__DEV__ ? 'Perfil' : 'TelaAbertura'}
-=======
-        initialRouteName={__DEV__ ? 'Municipios' : 'TelaAbertura'}
->>>>>>> 544b02d8c2db1b73b24beb9348c760338211395f
+        initialRouteName={__DEV__ ? 'Dashboard' : 'TelaAbertura'}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="TelaAbertura" component={TelaAbertura} />
@@ -31,6 +28,7 @@ export default function AppRoutes() {
         <Stack.Screen name="Dashboard" component={TelaDashboard} />
         <Stack.Screen name="Municipios" component={TelaMunicipios} />
         <Stack.Screen name="Perfil" component={TelaPerfil} />
+        <Stack.Screen name="PerfilInfo" component={PerfilInfo} />
         <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
         <Stack.Screen name="Favoritos" component={TelaFavoritos} />
       </Stack.Navigator>

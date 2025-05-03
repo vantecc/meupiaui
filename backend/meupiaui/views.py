@@ -38,13 +38,20 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Profile.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class ExistProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        has_profile = Profile.objects.filter(user=request.user).exists();
+        return JsonResponse({'has_profile': has_profile})
 
 @csrf_exempt
 def register_view(request):
@@ -70,6 +77,8 @@ def register_view(request):
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
 class CustomObtainAuthToken(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')

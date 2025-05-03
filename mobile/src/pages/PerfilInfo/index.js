@@ -14,16 +14,42 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { createProfile } from '../../api/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../../api/auth';
 
-export default function TelaPerfil() {
+export default function PerfilInfo() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [selectedImage, setSelectedImage] = useState(null);
   const [token, setToken] = useState('')
+  const [profile, setProfile] = useState('')
 
   useEffect(() => {
-    AsyncStorage.getItem('userToken').then(setToken);
+    
   }, []);
+
+  useEffect(() => {
+    async function getProfile() {
+      const savedToken = AsyncStorage.getItem('userToken').then(setToken);
+      if(savedToken) {
+        setToken(savedToken)
+
+        try {
+          const response = await api.get('/profile/', {
+            headers: {
+              Authorization: `Token ${token}`,
+            }
+          })
+          console.log(response.data)
+          setProfile(response.data)
+        } catch (error) {
+          alert('Erro ao buscar perfil')
+        }
+      }
+    }
+
+    getProfile();
+  }, []);
+
   
 
   const pickImage = async () => {
@@ -61,8 +87,10 @@ export default function TelaPerfil() {
             <View style={styles.imageWrapper}>
               <Image
                 source={
-                    selectedImage
-                    ? { uri: selectedImage.uri }
+                  selectedImage 
+                  ? { uri: selectedImage.uri }  // Se a imagem for selecionada, mostra ela
+                  : profile && profile[0]?.image  // Se tiver um perfil e uma imagem, mostra a imagem do perfil
+                    ? { uri: profile[0].image }  
                     : require('../../assets/smiling.png')
                 }
                 style={styles.profileImage}
@@ -72,37 +100,41 @@ export default function TelaPerfil() {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.name}>Adelaide Monteiro</Text>
-            <Text style={styles.subtitle}>Edite suas informações</Text>
-            <Text style={styles.email}>adelaide.monteiro@meupiaui.com</Text>
+            <Text style={styles.name}>
+              {profile && profile[0].first_name ? profile[0].first_name : 'Nome'}
+              </Text>
+            {/* <Text style={styles.subtitle}>Edite suas informações</Text> */}
+            <Text style={styles.email}>
+            {profile && profile[0].email ? profile[0].email : 'Insira seu email'}
+            </Text>
 
             <View style={styles.inputs}>
-              <TextInput
+              {/* <TextInput
                 style={styles.input}
                 placeholder="Nome"
                 placeholderTextColor="#132e209e"
                 onChangeText={setFirstName}
-              />
-              <TextInput
+              /> */}
+              {/* <TextInput
                 style={styles.input}
                 placeholder="Sobrenome"
                 placeholderTextColor="#132e209e"
                 onChangeText={setLastName}
-              />
-              <TextInput
+              /> */}
+              {/* <TextInput
                 style={styles.input}
                 placeholder="Email"
                 placeholderTextColor="#132e209e"
                 secureTextEntry
-              />
+              /> */}
             </View>
           </View>
         </View>
 
         <View style={styles.footerButtons}>
-          <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token)}>
+          {/* <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token)}>
             <Text style={styles.buttonText}>Salvar alterações</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Sair da conta</Text>

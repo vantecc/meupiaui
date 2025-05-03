@@ -11,7 +11,7 @@ export async function getTouristPoints() {
     }
 }
 
-export async function createProfile(first_name, last_name, imageObj) {
+export async function createProfile(first_name, last_name, imageObj, token) {
     const formData = new FormData();
     formData.append('first_name', first_name);
     formData.append('last_name', last_name);
@@ -28,8 +28,7 @@ export async function createProfile(first_name, last_name, imageObj) {
         const response = await api.post('/profile/', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                // Use a variável de token se necessário
-                // 'Authorization': `Bearer ${token}`,
+                'Authorization': `Token ${token}`
             },
         });
         alert('Perfil atualizado com sucesso!');
@@ -45,7 +44,7 @@ export async function getCategories() {
     try {
         const response = await api.get('/categories/')
         console.log('CATEGORIAS CARREGADAS COM SUCESSO!')
-        await AsyncStorage.setItem('userToken', response.data.token)
+        
         return response.data
     } catch (error) {
         alert('ERRO AO CARREGAR CATEGORIAS')
@@ -61,9 +60,20 @@ export async function loginUser(username, password, navigation) {
 
     try {
         const response = await api.post('/login/', { username, password })
-        console.log('user:', response.data)
-        navigation.navigate('Perfil')
-        alert('Seja bem vindo!')
+         await AsyncStorage.setItem('userToken', response.data.token)
+         const token = response.data.token
+
+         const result = await api.get('/has-profile/', {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+         })
+
+         if (result.data.has_profile){
+            navigation.navigate('Dashboard');
+         } else {
+            navigation.navigate('Perfil')
+         }
     } catch (error) {
         alert('Usuário ou senha incorretos!')
     }
