@@ -41,8 +41,28 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   footerIcon: {
-    width: 45,
-    height: 45,
+    width: 65,
+    height: 65,
     resizeMode: 'contain',
+  },
+  iconWrapper: {
+    position: 'relative',
+    width: 65,
+    height: 65,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  explorarIcon: {
+    position: 'absolute',
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },
+  portaOverlay: {
+    position: 'absolute',
+    height: 11,
+    backgroundColor: 'rgba(255, 215, 0, 0.9)',
+    bottom: 15,
+    left: 21,
   },
 });
