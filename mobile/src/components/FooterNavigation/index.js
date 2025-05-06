@@ -161,7 +161,7 @@ export default function FooterNavigation() {
             ]}
           />
         </View>
-        <Text style={[styles.footerLabel, { color: '#999' }]}>Municípios</Text>
+        <Text style={styles.footerLabel}>Municípios</Text>
       </TouchableOpacity>
     </View>
   );

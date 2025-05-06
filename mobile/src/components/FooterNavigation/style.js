@@ -25,11 +25,13 @@ export default StyleSheet.create({
     width: 100,
   },
   footerLabel: {
-    fontSize: 15,
-    marginTop: -9,
-    color: '#0f9d58',
+    fontSize: 18,
+    marginTop: -17, // era -9
+    color: '#2b7a4b', // ou qualquer outra cor que prefira
     textAlign: 'center',
+    fontWeight: 'bold',
   },
+  
   centerButtonWrapper: {
     position: 'absolute',
     top: -30,
