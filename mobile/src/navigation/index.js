@@ -12,6 +12,8 @@ import PerfilInfo from '../pages/PerfilInfo';
 import TelaConfiguracoes from '../pages/TelaConfiguracoes';
 import TelaFavoritos from '../pages/TelaFavoritos';
 import TelaMunicipioEspecifico from '../pages/TelaMunicipioEspecifico';
+import TelaDetalhesDoMunicipio from '../pages/TelaDetalhesDoMunicipio';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +22,7 @@ export default function AppRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={'MunicipioEspecifico'}
+        initialRouteName={'DetalhesDoMunicipio'}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="TelaAbertura" component={TelaAbertura} />
@@ -33,6 +35,8 @@ export default function AppRoutes() {
         <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
         <Stack.Screen name="Favoritos" component={TelaFavoritos} />
         <Stack.Screen name="MunicipioEspecifico" component={TelaMunicipioEspecifico} />
+        <Stack.Screen name="DetalhesDoMunicipio" component={TelaDetalhesDoMunicipio} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
