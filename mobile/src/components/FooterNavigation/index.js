@@ -90,8 +90,11 @@ export default function FooterNavigation() {
 
   const handleHomePress = () => {
     if (showExplorar) animateOut();
-    animarPorta();
+    if (!portaAtiva) {
+      animarPorta();
+    }
   };
+  
 
   const handleMunicipiosPress = () => {
     if (!showExplorar) animateIn();
