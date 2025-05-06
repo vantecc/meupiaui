@@ -6,9 +6,10 @@ export default StyleSheet.create({
   footer: {
     position: 'absolute',
     bottom: 0,
-    left: 0,
-    right: 0,
-    height: 80,
+    width: '100%',
+    paddingVertical: 5,
+    borderTopColor: '#ccc',
+    borderTopWidth: 1,
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
@@ -22,35 +23,35 @@ export default StyleSheet.create({
   },
   footerButton: {
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
     width: 100,
   },
   footerLabel: {
-    fontSize: 18,
-    marginTop: -17, // era -9
+    fontSize: 16,
     color: '#2b7a4b', // ou qualquer outra cor que prefira
     textAlign: 'center',
     fontWeight: 'bold',
   },
   
   centerButtonWrapper: {
-    position: 'absolute',
-    top: -30,
-    left: width / 2 - 44,
+    marginTop: -30,
+    borderRadius: 80,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderColor: '#ccc',
   },
   bussolaIcon: {
-    width: 88,
-    height: 88,
+    width: 80,
+    height: 80,
     resizeMode: 'contain',
   },
   footerIcon: {
-    width: 65,
-    height: 65,
-    resizeMode: 'contain',
+    width: 50,
+    height: 50,
   },
   iconWrapper: {
-    position: 'relative',
-    width: 65,
-    height: 65,
     alignItems: 'center',
     justifyContent: 'center',
   },

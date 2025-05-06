@@ -123,7 +123,7 @@ export default function FooterNavigation() {
             />
           )}
         </View>
-        <Text style={styles.footerLabel}>Home</Text>
+        <Text style={styles.footerLabel}>Início</Text>
       </TouchableOpacity>
 
       <View style={styles.centerButtonWrapper}>

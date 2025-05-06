@@ -29,18 +29,18 @@ export default function DashboardScreen() {
     setData(fakeData);
   }, []);
 
-  useEffect(() => {
-    async function saveCategories() {
-      const result = await getCategories()
-      if (Array.isArray(result)) {
-        setCategories(result);
-      } else {
-        setCategories([]); // evita crash se algo deu errado
-      }
-    }
+  // useEffect(() => {
+  //   async function saveCategories() {
+  //     const result = await getCategories()
+  //     if (Array.isArray(result)) {
+  //       setCategories(result);
+  //     } else {
+  //       setCategories([]); // evita crash se algo deu errado
+  //     }
+  //   }
 
-    saveCategories();
-  }, [])
+  //   saveCategories();
+  // }, [])
 
 
   return (
@@ -68,19 +68,19 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.searchContainer}>
-          <View style={{ position: 'relative' }}>
+          
             <FontAwesome
               name="search"
               size={16}
               color="#666"
-              style={{ position: 'absolute', left: 20, top: 14, zIndex: 1 }}
+              style={{position: 'absolute', zIndex: 3, left: 15}}
             />
             <TextInput
               style={[styles.input, { paddingLeft: 40 }]}
-              placeholder="Buscar pontos turísticos ou municípios"
+              placeholder="Buscar"
               placeholderTextColor="#666"
             />
-          </View>
+          
         </View>
 
 

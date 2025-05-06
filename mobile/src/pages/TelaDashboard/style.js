@@ -46,16 +46,18 @@ export default StyleSheet.create({
     textShadowRadius: 2,
   },
   searchContainer: {
-    marginHorizontal: 20,
-    marginBottom: 16,
+    width: '90%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   input: {
+    width: '100%',
+    position: 'absolute',
+    paddingHorizontal: 40,
+    borderRadius: 20,
+    paddingVertical: 10,
     backgroundColor: '#e5f5f0',
-    borderRadius: 25,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    fontSize: 16,
-    textAlign: 'center',
   },
   categoriesArea: {
 
@@ -98,7 +100,7 @@ export default StyleSheet.create({
   },
   sectionTitle: {
     paddingHorizontal: 20,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   sectionTitleText: {
     fontSize: 18,
@@ -107,44 +109,8 @@ export default StyleSheet.create({
   },
   carousel: {
     paddingLeft: 20,
+    paddingVertical: 5,
     height: 220,
     flexDirection: 'row',
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 80,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 30,
-    justifyContent: 'space-between',
-    elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  footerButton: {
-    alignItems: 'center',
-    width: 100,
-  },
-  footerLabel: {
-    fontSize: 15,
-    marginTop: 6,
-    color: '#0f9d58',
-    textAlign: 'center',
-  },
-  centerButtonWrapper: {
-    position: 'absolute',
-    top: -30,
-    left: width / 2 - 44,
-  },
-  bussolaIcon: {
-    width: 88,
-    height: 88,
-    resizeMode: 'contain',
   },
 });
