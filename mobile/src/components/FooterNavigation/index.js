@@ -93,12 +93,14 @@ export default function FooterNavigation() {
     if (!portaAtiva) {
       animarPorta();
     }
+    navigation.navigate('Dashboard')
   };
   
 
   const handleMunicipiosPress = () => {
     if (!showExplorar) animateIn();
     if (portaAtiva) esconderPorta();
+    navigation.navigate('MunicipioEspecifico')
   };
 
   return (
