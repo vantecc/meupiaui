@@ -13,20 +13,37 @@ export default StyleSheet.create({
     flexDirection: 'row',
     padding: 16,
   },
+  
   mainImage: {
-    width: '65%',
-    height: 180,
-    borderRadius: 12,
-  },
+   width: '65%',
+   height: 180,
+   borderRadius: 12,
+   shadowColor: '#000',
+   shadowOffset: { width: 0, height: 2 },
+   shadowOpacity: 0.15,
+   shadowRadius: 6,
+   elevation: 4,
+   backgroundColor: '#fff',
+ },
+ 
+ sideImage: {
+   width: 100,
+   height: 86,
+   borderRadius: 12,
+   shadowColor: '#000',
+   shadowOffset: { width: 0, height: 1 },
+   shadowOpacity: 0.1,
+   shadowRadius: 4,
+   elevation: 3,
+   backgroundColor: '#fff',
+ },
+ 
+
   sideImages: {
     marginLeft: 8,
     justifyContent: 'space-between',
   },
-  sideImage: {
-    width: 100,
-    height: 86,
-    borderRadius: 12,
-  },
+  
   infoContainer: {
     paddingHorizontal: 16,
     marginTop: 16,
