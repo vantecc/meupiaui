@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './style';
@@ -7,6 +7,8 @@ import FooterNavigation from '../../components/FooterNavigation';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function TelaPontoTuristicoDetalhe() {
+  const [favoritado, setFavoritado] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <BackButton />
@@ -49,8 +51,15 @@ export default function TelaPontoTuristicoDetalhe() {
       </ScrollView>
 
       <View style={styles.actionRow}>
-        <TouchableOpacity style={styles.actionButton}>
-          <FontAwesome name="heart-o" size={20} color="#1a2821" />
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => setFavoritado(!favoritado)}
+        >
+          <FontAwesome
+            name={favoritado ? 'heart' : 'heart-o'}
+            size={20}
+            color={favoritado ? '#2b7a4b' : '#1a2821'}
+          />
           <Text style={styles.actionText}>Favoritar</Text>
         </TouchableOpacity>
 

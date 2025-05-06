@@ -96,16 +96,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 12,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
+    paddingBottom: 150,
   },
   actionButton: {
     alignItems: 'center',
   },
   actionText: {
     marginTop: 4,
-    fontSize: 12,
+    fontSize: 15,
+    fontWeight: 'bold',
     color: '#1a2821',
   },
 });
