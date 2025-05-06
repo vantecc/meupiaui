@@ -1,5 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { View, TouchableOpacity, Text, Image, Animated } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Animated,
+  Easing,
+  Image,
+} from 'react-native';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,6 +19,26 @@ export default function FooterNavigation() {
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const portaAnim = useRef(new Animated.Value(0)).current;
+  const compassAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    let currentRotation = 0;
+  
+    const spin = () => {
+      currentRotation += 360;
+      compassAnim.setValue(0);
+  
+      Animated.timing(compassAnim, {
+        toValue: 1,
+        duration: 15000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }).start(() => spin());
+    };
+  
+    spin();
+  }, []);
+  
 
   const animateIn = () => {
     Animated.parallel([
@@ -98,9 +125,21 @@ export default function FooterNavigation() {
 
       <View style={styles.centerButtonWrapper}>
         <TouchableOpacity onPress={() => navigation.navigate('PerfilInfo')}>
-          <Image
+          <Animated.Image
             source={require('../../assets/mainbutton.png')}
-            style={styles.bussolaIcon}
+            style={[
+              styles.bussolaIcon,
+              {
+                transform: [
+                  {
+                    rotate: compassAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ['0deg', '360deg'],
+                    }),
+                  },
+                ],
+              },
+            ]}
           />
         </TouchableOpacity>
       </View>
