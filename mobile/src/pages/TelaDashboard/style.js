@@ -50,6 +50,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     alignSelf: 'center',
+    paddingVertical: 20,
+    marginBottom: 10,
+    position: 'relative',
   },
   input: {
     width: '100%',
@@ -60,7 +63,6 @@ export default StyleSheet.create({
     backgroundColor: '#e5f5f0',
   },
   categoriesArea: {
-
     width: '100%',
     flexDirection: 'row',
   },

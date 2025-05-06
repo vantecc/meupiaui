@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect,} from 'react';
 import {
   View,
   TextInput,
@@ -9,19 +9,34 @@ import {
 import FooterNavigation from '../../components/FooterNavigation';
 import BackButton from '../../components/BackButton';
 import style from './style';
+import getCities from '../../api/city';
 
-const municipiosMock = [
-  { id: '1', nome: 'Teresina' },
-  { id: '2', nome: 'Parnaíba' },
-  { id: '3', nome: 'Picos' },
-  { id: '4', nome: 'Floriano' },
-];
+
+
+
+
 
 const TelaMunicipioEspecifico = () => {
+  const [cities, setCities] = useState([])
+  
+  useEffect(() => {
+    async function loadCities(params) {
+      try {
+        const result = await getCities()
+        setCities(result)
+      } catch (error) {
+        console.log('erro')
+      }
+      
+    } 
+  
+    loadCities()
+  }, [])
+
   const [searchText, setSearchText] = useState('');
 
-  const filteredData = municipiosMock.filter((item) =>
-    item.nome.toLowerCase().includes(searchText.toLowerCase())
+  const filteredData = cities.filter((item) =>
+    item.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -40,7 +55,7 @@ const TelaMunicipioEspecifico = () => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity style={style.card}>
-              <Text style={style.cardTitle}>{item.nome}</Text>
+              <Text style={style.cardTitle}>{item.name}</Text>
             </TouchableOpacity>
           )}
           contentContainerStyle={style.listContainer}

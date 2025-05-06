@@ -31,7 +31,7 @@ export async function createProfile(first_name, last_name, imageObj, token, navi
                 'Authorization': `Token ${token}`
             },
         });
-        navigation.navigate('PerfilInfo');
+        navigation.navigate('Seu perfil');
         console.log(response.data);
     } catch (e) {
         alert('Erro ao criar perfil.');
@@ -70,7 +70,7 @@ export async function loginUser(username, password, navigation) {
         })
 
         if (result.data.has_profile) {
-            navigation.navigate('Dashboard');
+            navigation.navigate('home');
         } else {
             navigation.navigate('Perfil')
         }

@@ -29,18 +29,18 @@ export default function DashboardScreen() {
     setData(fakeData);
   }, []);
 
-  // useEffect(() => {
-  //   async function saveCategories() {
-  //     const result = await getCategories()
-  //     if (Array.isArray(result)) {
-  //       setCategories(result);
-  //     } else {
-  //       setCategories([]); // evita crash se algo deu errado
-  //     }
-  //   }
+  useEffect(() => {
+    async function saveCategories() {
+      const result = await getCategories()
+      if (Array.isArray(result)) {
+        setCategories(result);
+      } else {
+        setCategories([]);
+      }
+    }
 
-  //   saveCategories();
-  // }, [])
+    saveCategories();
+  }, [])
 
 
   return (
@@ -55,7 +55,9 @@ export default function DashboardScreen() {
         </View>
         <View style={styles.headerOverlay}>
           <View style={styles.headerContent}>
-            <FontAwesome name="bars" size={24} color="#fff" />
+            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+              <FontAwesome name="bars" size={24} color="#fff" />
+            </TouchableOpacity>
             <Text style={styles.headerTitle}>MeuPiauí</Text>
             <FontAwesome name="bell" size={20} color="#fff" />
           </View>
@@ -68,35 +70,35 @@ export default function DashboardScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.searchContainer}>
-          
-            <FontAwesome
-              name="search"
-              size={16}
-              color="#666"
-              style={{position: 'absolute', zIndex: 3, left: 15}}
-            />
-            <TextInput
-              style={[styles.input, { paddingLeft: 40 }]}
-              placeholder="Buscar"
-              placeholderTextColor="#666"
-            />
-          
+
+          <FontAwesome
+            name="search"
+            size={16}
+            color="#666"
+            style={{ position: 'absolute', zIndex: 3, left: 15 }}
+          />
+          <TextInput
+            style={[styles.input, { paddingLeft: 40 }]}
+            placeholder="Buscar"
+            placeholderTextColor="#666"
+          />
+
         </View>
 
 
-          <View style={styles.categoriesArea}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.categories}
-        >
+        <View style={styles.categoriesArea}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.categories}
+          >
             {categories.map((cat, index) => (
               <TouchableOpacity key={index} style={styles.categoryBadge}>
                 <Text style={styles.categoryText}>{cat.name}</Text>
               </TouchableOpacity>
             ))}
-        </ScrollView>
-          </View>
+          </ScrollView>
+        </View>
 
 
         <TouchableOpacity style={styles.exploreButton}>

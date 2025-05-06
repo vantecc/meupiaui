@@ -16,10 +16,12 @@ from .serializers import TouristPointSerializer, CitySerializer, FavoriteSeriali
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+    permission_classes = [AllowAny]
 
 class TouristPointViewSet(viewsets.ModelViewSet):
     queryset = TouristPoint.objects.all()
     serializer_class = TouristPointSerializer
+    permission_classes = [IsAuthenticated]
 
 class FavoriteViewSet(viewsets.ModelViewSet):
     serializer_class = FavoriteSerializer
@@ -32,6 +34,7 @@ class FavoriteViewSet(viewsets.ModelViewSet):
         
 
 class CategoryViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 

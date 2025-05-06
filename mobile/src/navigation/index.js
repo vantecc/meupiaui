@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import TelaAbertura from '../pages/TelaAbertura';
 import TelaLogin from '../pages/TelaLogin';
@@ -16,28 +16,28 @@ import TelaDetalhesDoMunicipio from '../pages/TelaDetalhesDoMunicipio';
 
 
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={'Dashboard'}
+      <Drawer.Navigator
+        initialRouteName={'home'}
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="TelaAbertura" component={TelaAbertura} />
-        <Stack.Screen name="Login" component={TelaLogin} />
-        <Stack.Screen name="Cadastro" component={TelaCadastro} />
-        <Stack.Screen name="Dashboard" component={TelaDashboard} />
-        <Stack.Screen name="Municipios" component={TelaMunicipios} />
-        <Stack.Screen name="Perfil" component={TelaPerfil} />
-        <Stack.Screen name="PerfilInfo" component={PerfilInfo} />
-        <Stack.Screen name="Configuracoes" component={TelaConfiguracoes} />
-        <Stack.Screen name="Favoritos" component={TelaFavoritos} />
-        <Stack.Screen name="MunicipioEspecifico" component={TelaMunicipioEspecifico} />
-        <Stack.Screen name="DetalhesDoMunicipio" component={TelaDetalhesDoMunicipio} />
+        <Drawer.Screen name="TelaAbertura" component={TelaAbertura} />
+        <Drawer.Screen name="Login" component={TelaLogin} />
+        <Drawer.Screen name="Cadastro" component={TelaCadastro} />
+        <Drawer.Screen name="home" component={TelaDashboard} />
+        <Drawer.Screen name="Municipios" component={TelaMunicipios} />
+        <Drawer.Screen name="Perfil" component={TelaPerfil} />
+        <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
+        <Drawer.Screen name="Configuracoes" component={TelaConfiguracoes} />
+        <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
+        <Drawer.Screen name="MunicipioEspecifico" component={TelaMunicipioEspecifico} />
+        <Drawer.Screen name="DetalhesDoMunicipio" component={TelaDetalhesDoMunicipio} />
 
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
