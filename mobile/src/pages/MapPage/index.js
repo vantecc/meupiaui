@@ -20,19 +20,19 @@ export default function MapScreen() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      setLocation(location.coords);
-
+      
       const token = await AsyncStorage.getItem("userToken")
       if(!token) {
         console.log('Token não foi encontrado')
         return;
       }
-
+      
       const result = await getTouristPoints(token);
       if (Array.isArray(result)) {
         setPointLocation(result);
         console.log(pointLocation)
       }
+      setLocation(location.coords);
     }
 
     getLocation();
