@@ -48,7 +48,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   footerIcon: {
-    width: 65,
+    width: 68,
     height: 65,
     marginBottom: -12,
   },
@@ -64,9 +64,9 @@ export default StyleSheet.create({
   },
   portaOverlay: {
     position: 'absolute',
-    height: 11,
+    height: 12,
     backgroundColor: 'rgba(255, 215, 0, 0.9)',
-    bottom: 15,
-    left: 21,
+    bottom: 2,
+    left: 22,
   },
 });

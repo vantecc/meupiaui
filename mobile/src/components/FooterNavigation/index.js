@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -8,10 +8,11 @@ import {
   Image,
 } from 'react-native';
 import styles from './style';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 
 export default function FooterNavigation() {
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [showExplorar, setShowExplorar] = useState(false);
   const [portaAtiva, setPortaAtiva] = useState(false);
@@ -22,12 +23,8 @@ export default function FooterNavigation() {
   const compassAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    let currentRotation = 0;
-  
     const spin = () => {
-      currentRotation += 360;
       compassAnim.setValue(0);
-  
       Animated.timing(compassAnim, {
         toValue: 1,
         duration: 15000,
@@ -35,10 +32,8 @@ export default function FooterNavigation() {
         useNativeDriver: true,
       }).start(() => spin());
     };
-  
     spin();
   }, []);
-  
 
   const animateIn = () => {
     Animated.parallel([
@@ -90,18 +85,30 @@ export default function FooterNavigation() {
 
   const handleHomePress = () => {
     if (showExplorar) animateOut();
-    if (!portaAtiva) {
-      animarPorta();
-    }
-    navigation.navigate('Início')
+    if (!portaAtiva) animarPorta();
+    navigation.navigate('Início');
   };
-  
 
   const handleMunicipiosPress = () => {
     if (!showExplorar) animateIn();
     if (portaAtiva) esconderPorta();
-    navigation.navigate('Municípios')
+    navigation.navigate('Municípios');
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      if (route.name === 'Municípios') {
+        animateIn();
+        esconderPorta();
+      } else if (route.name === 'Início') {
+        animateOut();
+        animarPorta();
+      } else {
+        animateOut();
+        esconderPorta();
+      }
+    }, [route.name])
+  );
 
   return (
     <View style={styles.footer}>
@@ -118,7 +125,7 @@ export default function FooterNavigation() {
                 {
                   width: portaAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['0%', '10%'],
+                    outputRange: ['0%', '9%'],
                   }),
                 },
               ]}
