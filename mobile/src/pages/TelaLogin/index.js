@@ -42,7 +42,7 @@ export default function Login() {
           <Image source={require('../../assets/oxe.png')} style={styles.character} resizeMode="contain" />
         </View>
 
-        <TouchableOpacity style={styles.registerLink} onPress={() => navigation.navigate('Cadastro')}>
+        <TouchableOpacity style={styles.registerLink} onPress={() => navigation.navigate('register')}>
           <Text style={styles.registerText}>Criar uma conta</Text>
         </TouchableOpacity>
 

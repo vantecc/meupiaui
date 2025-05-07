@@ -27,14 +27,14 @@ export default function TelaAbertura({ navigation }) {
         <View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.connectButton}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('login')}
           >
             <Text style={styles.connectText}>Conectar</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
   style={styles.registerButton}
-  onPress={() => navigation.navigate('Cadastro')}
+  onPress={() => navigation.navigate('register')}
 >
   <Text style={styles.registerText}>Cadastrar</Text>
 </TouchableOpacity>

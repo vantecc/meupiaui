@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import AppRoutes from '.';
 
 import TelaAbertura from '../pages/TelaAbertura';
 import TelaLogin from '../pages/TelaLogin';
@@ -16,23 +17,21 @@ import TelaDetalhesDoMunicipio from '../pages/TelaDetalhesDoMunicipio';
 
 
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
-export default function AppRoutes() {
+export default function AppStack() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
+      <Stack.Navigator
+        initialRouteName={'initial'}
         screenOptions={{ headerShown: false }}
       >
-        <Drawer.Screen name='homePage' component={TelaDashboard}/>
-        <Drawer.Screen name="Municipios" component={TelaMunicipios} />
-        <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
-        <Drawer.Screen name="Configuracões" component={TelaConfiguracoes} />
-        <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
-        <Drawer.Screen name="MunicipioEspecifico" component={TelaMunicipioEspecifico} />
-        <Drawer.Screen name="DetalhesDoMunicipio" component={TelaDetalhesDoMunicipio} />
-
-      </Drawer.Navigator>
+        <Stack.Screen name="initial" component={TelaAbertura} />
+        <Stack.Screen name="login" component={TelaLogin} />
+        <Stack.Screen name="register" component={TelaCadastro} />
+        <Stack.Screen name="home" component={AppRoutes} />
+        <Stack.Screen name="perfil" component={TelaPerfil} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
