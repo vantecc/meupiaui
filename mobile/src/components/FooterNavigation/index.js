@@ -93,7 +93,7 @@ export default function FooterNavigation() {
     if (!portaAtiva) {
       animarPorta();
     }
-    navigation.navigate('home')
+    navigation.navigate('Início')
   };
   
 

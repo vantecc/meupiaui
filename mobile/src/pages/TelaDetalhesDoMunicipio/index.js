@@ -1,46 +1,45 @@
 import React, { useState } from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './style';
 import BackButton from '../../components/BackButton';
 import FooterNavigation from '../../components/FooterNavigation';
 import { FontAwesome } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
 
 export default function TelaPontoTuristicoDetalhe() {
   const [favoritado, setFavoritado] = useState(false);
+  const route = useRoute();
+  const {item} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
-      <BackButton />
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.imageGallery}>
-          <Image
-            source={require('../../assets/setecidades.png')}
-            style={styles.mainImage}
-          />
-          <View style={styles.sideImages}>
-            <Image source={require('../../assets/setecidades.png')} style={styles.sideImage} />
-            <Image source={require('../../assets/setecidades.png')} style={styles.sideImage} />
-          </View>
-        </View>
+        <ImageBackground
+        style={styles.imageGallery}
+        source={{uri: item.image}}
+        >
+          
+            
+           
+          
+        </ImageBackground>
 
         <View style={styles.infoContainer}>
-          <Text style={styles.title}>Serra da Capivara</Text>
+          <Text style={styles.title}>{item.name}</Text>
 
           <View style={styles.metaRow}>
-            <Text style={styles.category}>Natureza</Text>
+            <Text style={styles.category}>{item.category_name}</Text>
             <Text style={styles.verTudo}>Ver tudo</Text>
           </View>
 
-          <Text style={styles.location}>📍Parnaíba, PI</Text>
+          <Text style={styles.location}>📍 {item.city_name}, PI</Text>
 
           <Text style={styles.sectionTitle}>Descrição</Text>
 
           <View style={styles.descriptionCard}>
-            <Image source={require('../../assets/serracapi.png')} style={styles.descriptionImage} />
             <View style={styles.descriptionTextBox}>
-              <Text style={styles.descriptionTitle}>História e beleza natural</Text>
               <Text style={styles.descriptionDate}>📅 2023-10-01</Text>
               <Text style={styles.descriptionText}>
                 A Serra da Capivara é conhecida por suas belas paisagens e sítios arqueológicos.
@@ -65,7 +64,7 @@ export default function TelaPontoTuristicoDetalhe() {
 
         <TouchableOpacity style={styles.actionButton}>
           <FontAwesome name="eye" size={20} color="#1a2821" />
-          <Text style={styles.actionText}>Visualizações</Text>
+          <Text style={styles.actionText}>{item.views_point}</Text>
         </TouchableOpacity>
       </View>
 

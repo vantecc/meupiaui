@@ -20,19 +20,17 @@ const Drawer = createDrawerNavigator();
 
 export default function AppRoutes() {
   return (
-    <NavigationContainer>
       <Drawer.Navigator
         screenOptions={{ headerShown: false }}
       >
-        <Drawer.Screen name='homePage' component={TelaDashboard}/>
+        <Drawer.Screen name='Início' component={TelaDashboard}/>
         <Drawer.Screen name="Municipios" component={TelaMunicipios} />
         <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
         <Drawer.Screen name="Configuracões" component={TelaConfiguracoes} />
         <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
         <Drawer.Screen name="MunicipioEspecifico" component={TelaMunicipioEspecifico} />
-        <Drawer.Screen name="DetalhesDoMunicipio" component={TelaDetalhesDoMunicipio} />
+        <Drawer.Screen name="details" component={TelaDetalhesDoMunicipio} />
 
       </Drawer.Navigator>
-    </NavigationContainer>
   );
 }

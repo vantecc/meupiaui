@@ -12,12 +12,14 @@ import AttractionCard from '../../components/AttractionCard';
 import FooterNavigation from '../../components/FooterNavigation';
 import img1 from '../../assets/serracapi.png';
 import { FontAwesome } from '@expo/vector-icons';
-import { getCategories } from '../../api/services';
+import { getCategories, getTouristPoints } from '../../api/services';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DashboardScreen() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([])
+  const [points, setPoints] = useState([])
 
   const navigation = useNavigation();
 
@@ -34,12 +36,26 @@ export default function DashboardScreen() {
       const result = await getCategories()
       if (Array.isArray(result)) {
         setCategories(result);
-      } else {
-        setCategories([]);
       }
     }
-
     saveCategories();
+  }, [])
+
+  useEffect(() => {
+    async function savePoints() {
+
+      const token = await AsyncStorage.getItem("userToken")
+      if(!token) {
+        console.log('Token não foi encontrado')
+        return;
+      }
+
+      const result = await getTouristPoints(token);
+      if (Array.isArray(result)) {
+        setPoints(result);
+      }
+    }
+    savePoints();
   }, [])
 
 
@@ -119,12 +135,13 @@ export default function DashboardScreen() {
             style={styles.carousel}
             contentContainerStyle={{ paddingRight: 20 }}
           >
-            {data.map((item) => (
+            {points.map((item) => (
               <AttractionCard
+                item={item}
                 key={item.id}
                 name={item.name}
-                category="Categoria"
-                image={img1}
+                category={item.category_name}
+                image={{uri: item.image}}
                 rating={4}
                 bookmarked={true}
               />

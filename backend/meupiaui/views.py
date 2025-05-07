@@ -23,6 +23,17 @@ class TouristPointViewSet(viewsets.ModelViewSet):
     serializer_class = TouristPointSerializer
     permission_classes = [IsAuthenticated]
 
+class SearchPoint(viewsets.ModelViewSet):
+    queryset = TouristPoint.objects.all()
+    serializer_class = TouristPointSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        name_point = self.request.query_params.get('name')
+        if name_point:
+            queryset = TouristPoint.objects.filter(name__icontains=name_point)
+            return queryset
+        
 class FavoriteViewSet(viewsets.ModelViewSet):
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()

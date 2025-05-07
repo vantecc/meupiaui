@@ -2,8 +2,12 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../../api/auth';
 
-export default function AttractionCard({ name, category, image, rating, bookmarked }) {
+export default function AttractionCard({item, name, category, image, rating, bookmarked }) {
+  const navigation = useNavigation();
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -21,8 +25,32 @@ export default function AttractionCard({ name, category, image, rating, bookmark
     );
   };
 
+  async function goDetails(item) {
+    navigation.navigate('details', {item})
+
+    const token = await AsyncStorage.getItem('userToken')
+    if(!token) {
+      console.log('TOKEN NÃO ENCONTRADO')
+      return;
+    }
+
+    try {
+      const viewsPoint = item.views_point ? item.views_point + 1 : 1;
+      const response = await api.patch(`/tourist-points/${item.id}/`,
+        {views_point: viewsPoint},
+        {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+      console.log('Views atualizada')
+    } catch (error) {
+      console.log('Erro ao atualizar vizu')
+    }
+  }
+
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={() => goDetails(item)}>
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>

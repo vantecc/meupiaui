@@ -1,9 +1,13 @@
 import api from "./auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export async function getTouristPoints() {
+export async function getTouristPoints(token) {
     try {
-        const response = await api.get('/tourist-points/')
+        const response = await api.get('/tourist-points/', {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        })
         console.log('Busca de dados efetuada.', response.data)
         return response.data
     } catch (error) {
@@ -31,7 +35,7 @@ export async function createProfile(first_name, last_name, imageObj, token, navi
                 'Authorization': `Token ${token}`
             },
         });
-        navigation.navigate('Seu perfil');
+        navigation.navigate('perfilInfo');
         console.log(response.data);
     } catch (e) {
         alert('Erro ao criar perfil.');
@@ -72,7 +76,7 @@ export async function loginUser(username, password, navigation) {
         if (result.data.has_profile) {
             navigation.navigate('home');
         } else {
-            navigation.navigate('Perfil')
+            navigation.navigate('perfil')
         }
     } catch (error) {
         alert('Usuário ou senha incorretos!')
@@ -86,8 +90,10 @@ export async function registerUser(username, email, password) {
         return;
     }
 
+    const data =  { username, email, password }
+
     try {
-        const response = await api.post('/register/', { username, email, password })
+        const response = await api.post('/register/', data)
         alert('Usuário registrado com sucesso!')
     } catch (error) {
         alert('Falha ao registrar usuário.')

@@ -7,6 +7,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { createProfile } from '../../api/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import api from '../../api/auth';
 
 export default function PerfilInfo() {
@@ -15,10 +16,16 @@ export default function PerfilInfo() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [token, setToken] = useState('')
   const [profile, setProfile] = useState(false)
+  const navigation = useNavigation();
 
-  useEffect(() => {
-
-  }, []);
+  const logout = async () => {
+    await AsyncStorage.removeItem('userToken')
+    
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'initial' }],
+    });
+  }
 
   useEffect(() => {
     async function getProfile() {
@@ -135,7 +142,7 @@ export default function PerfilInfo() {
             <Text style={styles.buttonText}>Salvar alterações</Text>
           </TouchableOpacity> */}
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={logout}>
               <Text style={styles.buttonText}>Sair da conta</Text>
             </TouchableOpacity>
           </View>

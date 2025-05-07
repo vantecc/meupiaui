@@ -4,14 +4,13 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAFEFC',
-    paddingTop: 80,
   },
   scrollContainer: {
     paddingBottom: 120,
   },
   imageGallery: {
-    flexDirection: 'row',
-    padding: 16,
+    width: '100%',
+    height: 300,
   },
   
   mainImage: {
