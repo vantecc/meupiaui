@@ -129,7 +129,7 @@ export default function FooterNavigation() {
       </TouchableOpacity>
 
       <View style={styles.centerButtonWrapper}>
-        <TouchableOpacity onPress={() => navigation.navigate('PerfilInfo')}>
+        <TouchableOpacity onPress={() => navigation.navigate('map')}>
           <Animated.Image
             source={require('../../assets/mainbutton.png')}
             style={[

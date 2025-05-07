@@ -13,6 +13,7 @@ import TelaConfiguracoes from '../pages/TelaConfiguracoes';
 import TelaFavoritos from '../pages/TelaFavoritos';
 import TelaMunicipioEspecifico from '../pages/TelaMunicipioEspecifico';
 import TelaDetalhesDoMunicipio from '../pages/TelaDetalhesDoMunicipio';
+import MapScreen from '../pages/MapPage';
 
 
 
@@ -31,7 +32,12 @@ export default function AppRoutes() {
         <Drawer.Screen name="Configuracões" component={TelaConfiguracoes} />
         <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
         <Drawer.Screen name="Municípios" component={TelaMunicipioEspecifico} />
-        <Drawer.Screen name="details" component={TelaDetalhesDoMunicipio} />
+        <Drawer.Screen name="details" component={TelaDetalhesDoMunicipio} options={{
+          drawerItemStyle: {display: 'none'}
+        }}/>
+        <Drawer.Screen name="map" component={MapScreen} options={{
+          drawerItemStyle: {display: 'none'}
+        }}/>
 
       </Drawer.Navigator>
   );

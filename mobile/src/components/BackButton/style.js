@@ -4,14 +4,18 @@ export default StyleSheet.create({
   container: {
     position: 'absolute',
     zIndex: 10,
-    padding: 8,
-    marginTop: 40,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 60,
+    left: 20,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+    borderRadius: '50%',
   },
 
   
-  icon: {
-    width: 35,
-    height: 35,
-    resizeMode: 'contain',
-  },
+  
 });
