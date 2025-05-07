@@ -118,7 +118,7 @@ export default function FooterNavigation() {
                 {
                   width: portaAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['0%', '15%'],
+                    outputRange: ['0%', '10%'],
                   }),
                 },
               ]}
@@ -156,7 +156,7 @@ export default function FooterNavigation() {
             style={styles.footerIcon}
           />
           <Animated.Image
-            source={require('../../assets/iconeexplorarpiaui.png')}
+            source={require('../../assets/iconeexplorarpiaui2.png')}
             style={[
               styles.explorarIcon,
               {

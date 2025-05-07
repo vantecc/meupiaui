@@ -29,13 +29,13 @@ export default StyleSheet.create({
   },
   footerLabel: {
     fontSize: 16,
-    color: '#2b7a4b', // ou qualquer outra cor que prefira
+    color: '#2b7a4b',
     textAlign: 'center',
     fontWeight: 'bold',
   },
   
   centerButtonWrapper: {
-    marginTop: -30,
+    marginTop: -90,
     borderRadius: 80,
     borderLeftWidth: 1,
     borderBottomWidth: 1,
@@ -43,13 +43,14 @@ export default StyleSheet.create({
     borderColor: '#ccc',
   },
   bussolaIcon: {
-    width: 80,
-    height: 80,
+    width: 88,
+    height: 88,
     resizeMode: 'contain',
   },
   footerIcon: {
-    width: 50,
-    height: 50,
+    width: 65,
+    height: 65,
+    marginBottom: -12,
   },
   iconWrapper: {
     alignItems: 'center',
@@ -57,8 +58,8 @@ export default StyleSheet.create({
   },
   explorarIcon: {
     position: 'absolute',
-    width: 20,
-    height: 20,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
   portaOverlay: {
