@@ -26,7 +26,7 @@ export default function AppRoutes() {
       >
         <Drawer.Screen name='Início' component={TelaDashboard}/>
         <Drawer.Screen name="search" component={TelaMunicipios} options={{
-          drawerItemStyle: {display: 'none'}
+          drawerItemStyle: {display: 'none',}
         }}/>
         <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
         <Drawer.Screen name="Configuracões" component={TelaConfiguracoes} />

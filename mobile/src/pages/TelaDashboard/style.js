@@ -93,7 +93,7 @@ export default StyleSheet.create({
     color: '#1b5e20',
   },
   carousel: {
-    paddingLeft: 20,
+    marginHorizontal: 10,
     paddingVertical: 5,
     height: 220,
     flexDirection: 'row',

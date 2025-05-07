@@ -2,15 +2,60 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../api/auth';
+import { goDetails } from '../../api/services';
+import { setFavorite } from '../../api/favorites';
+import { useCallback, useState, useEffect } from 'react';
 
-export default function AttractionCard({item, name, category, image, rating, bookmarked }) {
+export default function AttractionCard({ item, name, category, image, rating}) {
   const navigation = useNavigation();
+  const [token, setToken] = useState(null)
+  const [bookmarked, setBookmarked] = useState(false)
+
+  useFocusEffect(
+    useCallback(() => {
+      async function loadToken() {
+        const result = await AsyncStorage.getItem('userToken')
+        if (result) {
+          setToken(result)
+        } else {
+          console.log('Token não encontrado')
+        }
+      }
+      loadToken()
+    }, [])
+  )
+
+  useEffect(() => {
+    async function hasFavorite() {
+      if(!token) {
+        console.log('Token nao existe')
+        return;
+      }
+
+      try {
+        const response = await api.get(`/has-favorite/?point=${item.id}`, {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        })
+
+        setBookmarked(response.data.is_favorite)
+      } catch (e) {
+        console.log('erro ao atualizar favorito!')
+      }
+    }
+
+    hasFavorite()
+  }, [item.id, token])
+
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
+
+
 
     return (
       <View style={styles.starsContainer}>
@@ -25,7 +70,7 @@ export default function AttractionCard({item, name, category, image, rating, boo
     );
   };
 
-  
+
 
   return (
     <TouchableOpacity style={styles.card} onPress={() => goDetails(item, navigation)}>
@@ -35,11 +80,14 @@ export default function AttractionCard({item, name, category, image, rating, boo
         <Text style={styles.category}>{category}</Text>
         <View style={styles.bottomRow}>
           {renderStars(rating)}
-          <FontAwesome
-            name={bookmarked ? 'bookmark' : 'bookmark-o'}
-            size={16}
-            color="#0f9d58"
-          />
+
+          <TouchableOpacity>
+            <FontAwesome
+              name={bookmarked ? 'bookmark' : 'bookmark-o'}
+              size={30}
+              color="#0f9d58"
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>

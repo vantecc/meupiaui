@@ -1,42 +1,47 @@
 import { View, StyleSheet, ActivityIndicator,SafeAreaView } from "react-native";
 import MapView, { Marker } from 'react-native-maps'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import * as Location from 'expo-location'
 import FooterNavigation from "../../components/FooterNavigation";
 import BackButton from "../../components/BackButton";
 import { getTouristPoints } from "../../api/services";
+import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function MapScreen() {
   const [location, setLocation] = useState(null)
   const [pointLocation, setPointLocation] = useState(null)
 
-  useEffect(() => {
-    async function getLocation() {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status != 'granted') {
-        alert('Permissão de localização negada')
-        return;
+  useFocusEffect(
+    useCallback(() => {
+      async function getLocation() {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status != 'granted') {
+          alert('Permissão de localização negada')
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location.coords);
+        
+        const token = await AsyncStorage.getItem("userToken")
+        if(!token) {
+          console.log('Token não foi encontrado')
+          return;
+        }
+        
+        const result = await getTouristPoints(token);
+        if (Array.isArray(result)) {
+          setPointLocation(result);
+          console.log(pointLocation)
+        }
       }
+  
+      getLocation();
+    }, [])
+  )
 
-      let location = await Location.getCurrentPositionAsync({});
-      
-      const token = await AsyncStorage.getItem("userToken")
-      if(!token) {
-        console.log('Token não foi encontrado')
-        return;
-      }
-      
-      const result = await getTouristPoints(token);
-      if (Array.isArray(result)) {
-        setPointLocation(result);
-        console.log(pointLocation)
-      }
-      setLocation(location.coords);
-    }
-
-    getLocation();
-  }, [])
+  
 
  
 

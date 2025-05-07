@@ -31,7 +31,6 @@ export default function TelaPontoTuristicoDetalhe() {
 
           <View style={styles.metaRow}>
             <Text style={styles.category}>{item.category_name}</Text>
-            <Text style={styles.verTudo}>Ver tudo</Text>
           </View>
 
           <Text style={styles.location}>📍 {item.city_name}, PI</Text>

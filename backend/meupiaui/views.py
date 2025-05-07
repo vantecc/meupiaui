@@ -41,8 +41,24 @@ class FavoriteViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Favorite.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
+class HasFavorite(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        point_id = self.request.query_params.get('point')
         
+
+        if point_id:
+            is_favorite = Favorite.objects.filter(user=request.user, point=point_id).exists()
+            
+            return JsonResponse({
+                "is_favorite": is_favorite
+            })
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]

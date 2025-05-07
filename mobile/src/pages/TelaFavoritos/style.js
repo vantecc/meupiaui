@@ -16,13 +16,18 @@ export default StyleSheet.create({
     color: '#1a2821',
   },
   scrollContainer: {
-    paddingHorizontal: 16,
     paddingBottom: 90,
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   cardList: {
     flexDirection: 'row',
+    gap: 0,
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    width: '100%',
+
   },
   card: {
     width: '48%',

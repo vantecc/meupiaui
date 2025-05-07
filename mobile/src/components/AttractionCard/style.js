@@ -2,10 +2,9 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   card: {
-    width: 180,
+    width: 175,
     backgroundColor: '#fff',
     borderRadius: 12,
-    marginRight: 16,
     overflow: 'hidden',
     elevation: 2,
   },

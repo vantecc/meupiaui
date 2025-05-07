@@ -1,10 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, Image, ScrollView } from 'react-native';
 import styles from './style';
 import BackButton from '../../components/BackButton';
 import FooterNavigation from '../../components/FooterNavigation';
+import { getFavorites } from '../../api/favorites';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AttractionCard from '../../components/AttractionCard';
 
 export default function TelaFavoritos() {
+  const [token, setToken] = useState(null)
+  const [favorites, setFavorites] = useState([])
+
+  useFocusEffect(
+    useCallback(() => {
+      async function loadToken() {
+        const result = await AsyncStorage.getItem('userToken')
+        console.log('Token recuperado:', result); // Debug
+        if (result) {
+          setToken(result)
+          console.log(result)
+        } else {
+          console.log('Token não encontrado')
+        }
+      }
+      loadToken();
+    }, [])
+  )
+
+  useEffect(() => {
+    async function loadPointsFavorites() {
+      if (!token) {
+        console.log('token não encontrado')
+        return;
+      }
+      const response = await getFavorites(token);
+      console.log('favoritos', response.data)
+      setFavorites(response);
+    }
+
+
+    loadPointsFavorites();
+  }, [token])
+
+
   return (
     <View style={styles.container}>
       <BackButton />
@@ -15,24 +54,19 @@ export default function TelaFavoritos() {
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.cardList}>
-          {[
-            { nome: 'Praia de Barra Grande', categoria: 'Natureza' },
-            { nome: 'Cânion do Rio Poti', categoria: 'Aventura' },
-            { nome: 'Parque Nacional de Sete Cidades', categoria: 'História' },
-            { nome: 'Serra da Capivara', categoria: 'Cultura' },
-            { nome: 'Cachoeira do Urubu', categoria: 'Natureza' },
-          ].map((ponto, index) => (
-            <View key={index} style={styles.card}>
-              <View style={styles.imagePlaceholder} />
-              <View style={styles.cardText}>
-                <Text style={styles.cardTitle}>{ponto.nome}</Text>
-                <Text style={styles.cardSubtitle}>{ponto.categoria}</Text>
-              </View>
-            </View>
+          {favorites.map((item, index) => (
+            <AttractionCard
+              item={item}
+              key={item.id}
+              name={item.name}
+              category={item.category_name}
+              image={{ uri: item.image }}
+              rating={4}
+            />
           ))}
         </View>
       </ScrollView>
-      <FooterNavigation /> 
+      <FooterNavigation />
     </View>
   );
 }

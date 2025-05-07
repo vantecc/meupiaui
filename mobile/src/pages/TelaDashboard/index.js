@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchBar from '../../components/SearchBar';
 
+
 export default function DashboardScreen() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([])
@@ -121,7 +122,7 @@ export default function DashboardScreen() {
             horizontal
             showsHorizontalScrollIndicator={false}
             style={styles.carousel}
-            contentContainerStyle={{ paddingRight: 20 }}
+            contentContainerStyle={{ gap: 15, }}
           >
             {points.map((item) => (
               <AttractionCard
@@ -131,7 +132,6 @@ export default function DashboardScreen() {
                 category={item.category_name}
                 image={{uri: item.image}}
                 rating={4}
-                bookmarked={true}
               />
             ))}
           </ScrollView>
