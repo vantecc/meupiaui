@@ -1,5 +1,69 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-
+# Node modules
 node_modules/
+
+# Expo
 .expo/
+.expo-shared/
+
+# macOS system files
+.DS_Store
+
+# Android
+android/app/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/.cxx/
+
+# iOS
+ios/Pods/
+ios/build/
+ios/.idea/
+ios/*.xcworkspace
+ios/*.xcodeproj/project.xcworkspace/
+ios/*.xcodeproj/xcuserdata/
+ios/*.xcodeproj/*.pbxuser
+ios/.xcconfig
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing and coverage
+coverage/
+.nyc_output/
+jest-cache/
+*.test.ts.snap
+*.test.js.snap
+
+# Build output
+dist/
+build/
+web-build/
+*.tgz
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Metro, Babel, TypeScript
+.cache/
+babel.config.js
+tsconfig.json
+tsconfig.tsbuildinfo
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Misc
+*.log
+*.bak
+*.orig
+*.tmp
+*.local
