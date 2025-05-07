@@ -64,9 +64,9 @@ export default StyleSheet.create({
   },
   portaOverlay: {
     position: 'absolute',
-    height: 12,
+    height: 11.5,
     backgroundColor: 'rgba(255, 215, 0, 0.9)',
-    bottom: 2,
+    bottom: 2.2,
     left: 22,
   },
 });

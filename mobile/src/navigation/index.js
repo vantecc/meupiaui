@@ -14,8 +14,7 @@ import TelaFavoritos from '../pages/TelaFavoritos';
 import TelaMunicipioEspecifico from '../pages/TelaMunicipioEspecifico';
 import TelaDetalhesDoMunicipio from '../pages/TelaDetalhesDoMunicipio';
 import MapScreen from '../pages/MapPage';
-
-
+import CustomDrawer from '../components/CustomDrawer/menu-lateral';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,6 +22,7 @@ export default function AppRoutes() {
   return (
       <Drawer.Navigator
         screenOptions={{ headerShown: false }}
+        drawerContent={(props) => <CustomDrawer {...props} />}
       >
         <Drawer.Screen name='Início' component={TelaDashboard}/>
         <Drawer.Screen name="search" component={TelaMunicipios} options={{
@@ -38,7 +38,6 @@ export default function AppRoutes() {
         <Drawer.Screen name="map" component={MapScreen} options={{
           drawerItemStyle: {display: 'none'}
         }}/>
-
       </Drawer.Navigator>
   );
 }
