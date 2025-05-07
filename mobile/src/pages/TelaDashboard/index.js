@@ -15,6 +15,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { getCategories, getTouristPoints } from '../../api/services';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SearchBar from '../../components/SearchBar';
 
 export default function DashboardScreen() {
   const [data, setData] = useState([]);
@@ -85,21 +86,8 @@ export default function DashboardScreen() {
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.searchContainer}>
-
-          <FontAwesome
-            name="search"
-            size={16}
-            color="#666"
-            style={{ position: 'absolute', zIndex: 3, left: 15 }}
-          />
-          <TextInput
-            style={[styles.input, { paddingLeft: 40 }]}
-            placeholder="Buscar"
-            placeholderTextColor="#666"
-          />
-
-        </View>
+        
+        <SearchBar/>
 
 
         <View style={styles.categoriesArea}>
@@ -119,7 +107,7 @@ export default function DashboardScreen() {
 
         <TouchableOpacity style={styles.exploreButton}>
           <Text style={styles.exploreText}>
-            {data[0]?.name || 'Explorar pontos turísticos'}
+            { 'Explorar pontos turísticos'}
           </Text>
         </TouchableOpacity>
 

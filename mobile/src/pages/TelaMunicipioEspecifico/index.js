@@ -1,4 +1,4 @@
-import React, { useState, useEffect,} from 'react';
+import React, { useState, useEffect, } from 'react';
 import {
   View,
   TextInput,
@@ -10,6 +10,7 @@ import FooterNavigation from '../../components/FooterNavigation';
 import BackButton from '../../components/BackButton';
 import style from './style';
 import getCities from '../../api/city';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 
@@ -18,7 +19,7 @@ import getCities from '../../api/city';
 
 const TelaMunicipioEspecifico = () => {
   const [cities, setCities] = useState([])
-  
+
   useEffect(() => {
     async function loadCities(params) {
       try {
@@ -27,9 +28,9 @@ const TelaMunicipioEspecifico = () => {
       } catch (error) {
         console.log('erro')
       }
-      
-    } 
-  
+
+    }
+
     loadCities()
   }, [])
 
@@ -41,21 +42,30 @@ const TelaMunicipioEspecifico = () => {
 
   return (
     <View style={style.container}>
-      <BackButton />
       <View style={style.innerContainer}>
-        <TextInput
-          style={style.searchInput}
-          placeholder="Buscar município"
-          placeholderTextColor="#888"
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+        <View style={style.inputContainer}>
+          <FontAwesome
+            name="search"
+            size={16}
+            color="#666"
+            style={{ position: 'absolute', zIndex: 3, left: 15 }}
+          />
+          <TextInput
+            style={style.searchInput}
+            placeholder="Buscar município"
+            placeholderTextColor="#888"
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+        </View>
+
         <FlatList
           data={filteredData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity style={style.card}>
-              <Text style={style.cardTitle}>{item.name}</Text>
+              <Text style={style.cardTitle}>📍 {item.name}</Text>
+              <FontAwesome name='arrow-right' color={'#0f9d58'} size={15} />
             </TouchableOpacity>
           )}
           contentContainerStyle={style.listContainer}

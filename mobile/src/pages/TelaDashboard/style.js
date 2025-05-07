@@ -10,8 +10,8 @@ export default StyleSheet.create({
     backgroundColor: '#fafefc',
   },
   contentContainer: {
-    paddingTop: 60,
-    paddingBottom: 140,
+    paddingTop: 40,
+    paddingBottom: 115,
   },
   headerContainer: {
     position: 'relative',
@@ -44,23 +44,6 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
-  },
-  searchContainer: {
-    width: '90%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    paddingVertical: 20,
-    marginBottom: 10,
-    position: 'relative',
-  },
-  input: {
-    width: '100%',
-    position: 'absolute',
-    paddingHorizontal: 40,
-    borderRadius: 20,
-    paddingVertical: 10,
-    backgroundColor: '#e5f5f0',
   },
   categoriesArea: {
     width: '100%',

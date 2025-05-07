@@ -25,32 +25,10 @@ export default function AttractionCard({item, name, category, image, rating, boo
     );
   };
 
-  async function goDetails(item) {
-    navigation.navigate('details', {item})
-
-    const token = await AsyncStorage.getItem('userToken')
-    if(!token) {
-      console.log('TOKEN NÃO ENCONTRADO')
-      return;
-    }
-
-    try {
-      const viewsPoint = item.views_point ? item.views_point + 1 : 1;
-      const response = await api.patch(`/tourist-points/${item.id}/`,
-        {views_point: viewsPoint},
-        {
-        headers: {
-          Authorization: `Token ${token}`
-        }
-      })
-      console.log('Views atualizada')
-    } catch (error) {
-      console.log('Erro ao atualizar vizu')
-    }
-  }
+  
 
   return (
-    <TouchableOpacity style={styles.card} onPress={() => goDetails(item)}>
+    <TouchableOpacity style={styles.card} onPress={() => goDetails(item, navigation)}>
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>
@@ -67,3 +45,4 @@ export default function AttractionCard({item, name, category, image, rating, boo
     </TouchableOpacity>
   );
 }
+

@@ -99,3 +99,27 @@ export async function registerUser(username, email, password) {
         alert('Falha ao registrar usuário.')
     }
 }
+
+export async function goDetails(item, navigation) {
+    navigation.navigate('details', {item})
+
+    const token = await AsyncStorage.getItem('userToken')
+    if(!token) {
+      console.log('TOKEN NÃO ENCONTRADO')
+      return;
+    }
+
+    try {
+      const viewsPoint = item.views_point ? item.views_point + 1 : 1;
+      const response = await api.patch(`/tourist-points/${item.id}/`,
+        {views_point: viewsPoint},
+        {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+      console.log('Views atualizada')
+    } catch (error) {
+      console.log('Erro ao atualizar vizu')
+    }
+  }

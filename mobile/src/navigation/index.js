@@ -6,7 +6,7 @@ import TelaAbertura from '../pages/TelaAbertura';
 import TelaLogin from '../pages/TelaLogin';
 import TelaCadastro from '../pages/TelaCadastro';
 import TelaDashboard from '../pages/TelaDashboard';
-import TelaMunicipios from '../pages/TelaMunicipios';
+import TelaMunicipios from '../pages/SearchPage';
 import TelaPerfil from '../pages/TelaPerfil';
 import PerfilInfo from '../pages/PerfilInfo';
 import TelaConfiguracoes from '../pages/TelaConfiguracoes';
@@ -24,11 +24,13 @@ export default function AppRoutes() {
         screenOptions={{ headerShown: false }}
       >
         <Drawer.Screen name='Início' component={TelaDashboard}/>
-        <Drawer.Screen name="Municipios" component={TelaMunicipios} />
+        <Drawer.Screen name="search" component={TelaMunicipios} options={{
+          drawerItemStyle: {display: 'none'}
+        }}/>
         <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
         <Drawer.Screen name="Configuracões" component={TelaConfiguracoes} />
         <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
-        <Drawer.Screen name="MunicipioEspecifico" component={TelaMunicipioEspecifico} />
+        <Drawer.Screen name="Municípios" component={TelaMunicipioEspecifico} />
         <Drawer.Screen name="details" component={TelaDetalhesDoMunicipio} />
 
       </Drawer.Navigator>

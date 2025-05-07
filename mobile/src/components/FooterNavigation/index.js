@@ -100,7 +100,7 @@ export default function FooterNavigation() {
   const handleMunicipiosPress = () => {
     if (!showExplorar) animateIn();
     if (portaAtiva) esconderPorta();
-    navigation.navigate('MunicipioEspecifico')
+    navigation.navigate('Municípios')
   };
 
   return (
