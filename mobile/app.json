@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "frontend",
+    "name": "Meu Piauí",
     "slug": "frontend",
     "scheme": "meupiaui",
     "owner": "decleve",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/meupiaui1.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -26,10 +26,16 @@
         "googleMaps": {
           "apiKey": "AIzaSyAAxemwYJjrRfBcYdD6_HpsMphXEBKlzVU"
         }
-      }
+      },
+      "package": "com.decleve.meupiaui"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "41ba97e7-926a-451f-92b3-b678481c7e45"
+      }
     }
   }
 }
