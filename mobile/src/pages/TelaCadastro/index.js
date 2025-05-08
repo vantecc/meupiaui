@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,11 @@ import { useNavigation } from '@react-navigation/native';
 export default function Cadastro() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [validatedEmail, setValidatedEmail] = useState(false)
+  const [validatedPassword, setValidatedPassword] = useState(false)
+  const [validatedConfirmPassword, setValidatedConfirmPassword] = useState(false)
+  const [msg, setMsg] = useState('')
 
   const navigation = useNavigation()
 
@@ -33,6 +38,57 @@ export default function Cadastro() {
     { provider: 'Facebook', bg: '#3a63ed', textColor: '#fff' },
     { provider: 'Google', bg: '#ffffff', textColor: '#1a2821', border: true },
   ];
+
+  
+  useEffect(() => {
+    if (email.includes('@')) {
+      setValidatedEmail(true)
+      setMsg('')
+    } else {
+      setValidatedEmail(false)
+      setMsg('Seu email deve conter @..')
+    }
+  }, [email])
+
+  useEffect(() => {
+    if (password.length < 8) {
+      setMsg('Sua senha deve ter 8 ou mais digítos.')
+      setValidatedPassword(false)
+    } else {
+      setMsg('')
+      setValidatedPassword(true)
+    }
+  }, [password])
+
+  useEffect(() => {
+    if (confirmPassword !== password) {
+      setMsg('Suas senhas se diferem.')
+      setValidatedConfirmPassword(false)
+    } else {
+      setMsg('')
+      setValidatedConfirmPassword(true)
+    }
+  }, [confirmPassword])
+
+  async function handleRegister() {
+    if (!validatedEmail || !validatedPassword || !validatedConfirmPassword) {
+      alert("Por favor, preencha seus dados corretamente.");
+      return;
+    }
+  
+    try {
+      const res = await registerUser(email, email, password);
+      if (res?.status === 201) {
+        Alert.alert("Cadastro realizado com sucesso!");
+        navigation.navigate('login'); // ou outra tela
+      } else {
+        Alert.alert("Erro ao cadastrar", res?.data?.error || 'Tente novamente mais tarde.');
+      }
+    } catch (err) {
+      console.error(err);
+      Alert.alert("Erro ao cadastrar", "Verifique sua conexão ou tente novamente.");
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -59,16 +115,21 @@ export default function Cadastro() {
         placeholderTextColor="#132e209e"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
+        secureTextEntry={true}
       />
       <TextInput
         style={styles.inputFull}
         placeholder="Confirme sua senha"
         placeholderTextColor="#132e209e"
+        secureTextEntry={true}
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
       />
+      {msg ? <Text style={{ color: 'red', marginVertical: 5 }}>{msg}</Text> : null}
+
 
       <TouchableOpacity style={styles.registerButton}>
-        <Text style={styles.registerText} onPress={() => registerUser(email, email, password)}>Cadastrar</Text>
+        <Text style={styles.registerText} onPress={handleRegister}>Cadastrar</Text>
       </TouchableOpacity>
 
       <Text style={styles.terms}>

@@ -6,7 +6,7 @@ const style = StyleSheet.create({
     backgroundColor: '#fafefc',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 80,
+    paddingTop: 65,
   },
   innerContainer: {
     flex: 1,
@@ -14,7 +14,7 @@ const style = StyleSheet.create({
     backgroundColor: '#fafefc',
   },
   inputContainer: {
-    width: '95%',
+    width: '90%',
     alignSelf: 'center',
     flexDirection:'row',
     alignItems: 'center',
@@ -22,7 +22,7 @@ const style = StyleSheet.create({
   },
   searchInput: {
     height: 54,
-    backgroundColor: '#fff',
+    backgroundColor: '#e5f5f0',
     borderRadius: 22,
     paddingHorizontal: 20,
     paddingLeft: 40,
@@ -59,6 +59,16 @@ const style = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
+  },
+  header: {
+    marginBottom: 50,
+    alignItems: 'center',
+    width: '100%',
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#1a2821',
   },
 });
 

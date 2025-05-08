@@ -26,7 +26,7 @@ const TelaMunicipioEspecifico = () => {
 
   async function searchResult(search) {
     token = await AsyncStorage.getItem('userToken')
-    if(!token) {
+    if (!token) {
       console.log('Falha ao carregar token')
       return;
     }
@@ -38,8 +38,8 @@ const TelaMunicipioEspecifico = () => {
           Authorization: `Token ${token}`
         }
       })
-      console.log('PEsquisa:',response.data)
-      navigation.navigate('search', {item: response.data, searchResult: search})
+      console.log('PEsquisa:', response.data)
+      navigation.navigate('search', { item: response.data, searchResult: search })
     } catch (error) {
       console.log('Erro ao buscar')
     }
@@ -67,6 +67,10 @@ const TelaMunicipioEspecifico = () => {
 
   return (
     <View style={style.container}>
+      <BackButton/>
+      <View style={style.header}>
+        <Text style={style.headerTitle}>Municípios</Text>
+      </View>
       <View style={style.innerContainer}>
         <View style={style.inputContainer}>
           <FontAwesome

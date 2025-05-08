@@ -10,6 +10,7 @@ import json
 from rest_framework import status
 from .models import TouristPoint, City, Favorite, Category, Profile
 from .serializers import TouristPointSerializer, CitySerializer, FavoriteSerializer, CategorySerializer, ProfileSerializer
+from asgiref.sync import sync_to_async
 
 # Create your views here.
 
@@ -93,7 +94,7 @@ class ExistProfileView(APIView):
         return JsonResponse({'has_profile': has_profile})
 
 @csrf_exempt
-def register_view(request):
+async def register_view(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -104,10 +105,14 @@ def register_view(request):
             if not username or not password:
                 return JsonResponse({'error': 'Username e senha são obrigatórios!'}, status=400)
             
-            if User.objects.filter(username=username).exists():
+
+            user_exists = await sync_to_async(User.objects.filter(username=username).exists)()
+
+            if user_exists:
                 return JsonResponse({'error': 'Usuário já existe!'}, status=400)
-            
-            user = User.objects.create_user(username=username, email=email, password=password)
+
+            user = await sync_to_async(User.objects.create_user)(username=username, email=email, password=password)
+
             return JsonResponse({'message': 'Usuário registrado com sucesso!', 'user': user.username})
 
         except Exception as e:
