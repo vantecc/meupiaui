@@ -7,12 +7,13 @@ import SearchBar from '../../components/SearchBar';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 import { goDetails } from '../../api/services';
+import AttractionCard from '../../components/AttractionCard';
 
 
 export default function SearchPage() {
   const navigation = useNavigation()
   const route = useRoute()
-  const item = route.params?.item || [];
+  const {item, searchResult} = route.params || {};
 
 
   return (
@@ -21,20 +22,25 @@ export default function SearchPage() {
 
       <SearchBar />
 
+      <View style={styles.searchInfo}>
+        <Text style={styles.searchTitle}>
+          Resultados para <Text style={styles.searchResult}>"{searchResult}"</Text>:  {item.length}
+        </Text>
+      </View>
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {item != [] ?
+        {item ?
           <View style={styles.cardList}>
             {item.map((item, index) => (
-              <TouchableOpacity key={item.id} style={styles.card} onPress={() => goDetails(item, navigation)}>
-                <Image
-                  style={styles.imagePlaceholder}
-                  source={{uri: item.image}}
-                />
-                <View style={styles.cardText}>
-                  <Text style={styles.cardTitle}>{item.name}</Text>
-                  <Text style={styles.cardSubtitle}>{item.category_name}</Text>
-                </View>
-              </TouchableOpacity>
+              <AttractionCard
+                item={item}
+                key={item.id}
+                name={item.name}
+                category={item.category_name}
+                image={{ uri: item.image }}
+                rating={4}
+                idponto={item.id}
+              />
             ))}
           </View> :
 

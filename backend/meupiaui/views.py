@@ -30,8 +30,12 @@ class SearchPoint(viewsets.ModelViewSet):
 
     def get_queryset(self):
         name_point = self.request.query_params.get('name')
+        city = self.request.query_params.get('city')
         if name_point:
             queryset = TouristPoint.objects.filter(name__icontains=name_point)
+            return queryset
+        elif city:
+            queryset = TouristPoint.objects.filter(city__name__icontains=city)
             return queryset
         
 class FavoriteViewSet(viewsets.ModelViewSet):

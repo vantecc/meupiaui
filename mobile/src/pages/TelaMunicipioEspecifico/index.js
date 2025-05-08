@@ -11,6 +11,9 @@ import BackButton from '../../components/BackButton';
 import style from './style';
 import getCities from '../../api/city';
 import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../../api/auth';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -19,6 +22,28 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const TelaMunicipioEspecifico = () => {
   const [cities, setCities] = useState([])
+  const navigation = useNavigation();
+
+  async function searchResult(search) {
+    token = await AsyncStorage.getItem('userToken')
+    if(!token) {
+      console.log('Falha ao carregar token')
+      return;
+    }
+
+    try {
+      const searchTerm = encodeURIComponent(search);
+      const response = await api.get(`/search/?city=${searchTerm}`, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+      console.log('PEsquisa:',response.data)
+      navigation.navigate('search', {item: response.data, searchResult: search})
+    } catch (error) {
+      console.log('Erro ao buscar')
+    }
+  }
 
   useEffect(() => {
     async function loadCities(params) {
@@ -63,7 +88,7 @@ const TelaMunicipioEspecifico = () => {
           data={filteredData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={style.card}>
+            <TouchableOpacity style={style.card} onPress={() => searchResult(item.name)}>
               <Text style={style.cardTitle}>📍 {item.name}</Text>
               <FontAwesome name='arrow-right' color={'#0f9d58'} size={15} />
             </TouchableOpacity>

@@ -25,7 +25,7 @@ export default function SearchBar() {
         }
       })
       console.log('PEsquisa:',response.data)
-      navigation.navigate('search', {item: response.data})
+      navigation.navigate('search', {item: response.data, searchResult: search})
     } catch (error) {
       console.log('Erro ao buscar')
     }

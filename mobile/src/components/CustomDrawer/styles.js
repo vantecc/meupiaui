@@ -21,6 +21,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
+  imageProfile: {
+    width: 120,
+    height: 120,
+    borderRadius: 120,
+    marginBottom: 15,
+    alignSelf: 'center'
+  },
   profileName: {
     fontSize: 18,
     color: '#2b7a4b',

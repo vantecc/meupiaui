@@ -53,4 +53,19 @@ export default StyleSheet.create({
     color: '#1a2821aa',
     marginTop: 4,
   },
+  searchInfo: {
+    paddingHorizontal: 20,
+    marginBottom: 30,
+  },
+  searchResult: {
+    fontSize: 20,
+    fontStyle: 'normal',
+    color: '#1a5a4a',
+    fontWeight: 'light'
+  },
+  searchTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#1a5a4a'
+  }
 });
