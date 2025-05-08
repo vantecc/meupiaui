@@ -20,24 +20,29 @@ const Drawer = createDrawerNavigator();
 
 export default function AppRoutes() {
   return (
-      <Drawer.Navigator
-        screenOptions={{ headerShown: false }}
-        drawerContent={(props) => <CustomDrawer {...props} />}
-      >
-        <Drawer.Screen name='Início' component={TelaDashboard}/>
-        <Drawer.Screen name="search" component={TelaMunicipios} options={{
-          drawerItemStyle: {display: 'none',}
-        }}/>
-        <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
-        <Drawer.Screen name="Configuracões" component={TelaConfiguracoes} />
-        <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
-        <Drawer.Screen name="Municípios" component={TelaMunicipioEspecifico} />
-        <Drawer.Screen name="details" component={TelaDetalhesDoMunicipio} options={{
-          drawerItemStyle: {display: 'none'}
-        }}/>
-        <Drawer.Screen name="map" component={MapScreen} options={{
-          drawerItemStyle: {display: 'none'}
-        }}/>
-      </Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: false,
+        drawerType: 'front',
+        overlayColor: 'rgba(0, 0, 0, 0.1)',
+        sceneContainerStyle: { backgroundColor: 'transparent' },
+      }}
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
+      <Drawer.Screen name='Início' component={TelaDashboard} />
+      <Drawer.Screen name="search" component={TelaMunicipios} options={{
+        drawerItemStyle: { display: 'none' },
+      }} />
+      <Drawer.Screen name="Seu perfil" component={PerfilInfo} />
+      <Drawer.Screen name="Configurações" component={TelaConfiguracoes} />
+      <Drawer.Screen name="Favoritos" component={TelaFavoritos} />
+      <Drawer.Screen name="Municípios" component={TelaMunicipioEspecifico} />
+      <Drawer.Screen name="details" component={TelaDetalhesDoMunicipio} options={{
+        drawerItemStyle: { display: 'none' },
+      }} />
+      <Drawer.Screen name="map" component={MapScreen} options={{
+        drawerItemStyle: { display: 'none' },
+      }} />
+    </Drawer.Navigator>
   );
 }

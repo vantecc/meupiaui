@@ -4,6 +4,18 @@ export default StyleSheet.create({
   drawerContent: {
     paddingTop: 40,
     paddingHorizontal: 20,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    backgroundColor: '#fafefc',
+    shadowColor: '#000',
+    shadowOffset: { width: -2, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
   },
   iconUserWrapper: {
     alignItems: 'center',
@@ -24,9 +36,12 @@ export default StyleSheet.create({
   backButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 30,
+    paddingVertical: 31.5,
     borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
+    borderTopColor: '#ccc',
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
   },
   backText: {
     color: '#2b7a4b',

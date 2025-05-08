@@ -125,7 +125,7 @@ export default function FooterNavigation() {
                 {
                   width: portaAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['0%', '9%'],
+                    outputRange: ['0%', '8%'],
                   }),
                 },
               ]}
