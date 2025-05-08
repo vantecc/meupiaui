@@ -54,6 +54,7 @@ export default StyleSheet.create({
     paddingHorizontal: 13,
     fontSize: 17,
     color: '#132e209e',
+    width: '100%',
   },
   rememberRow: {
     flexDirection: 'row',
@@ -133,5 +134,11 @@ export default StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     flex: 1,
+  },
+  areaInput: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
   },
 });

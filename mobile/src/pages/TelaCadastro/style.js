@@ -48,6 +48,12 @@ export default StyleSheet.create({
     flex: 1,
     color: '#132e209e',
   },
+  areaInput: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
   inputFull: {
     backgroundColor: '#247e5117',
     borderRadius: 18,
@@ -56,7 +62,6 @@ export default StyleSheet.create({
     fontSize: 17,
     color: '#132e209e',
     width: '100%',
-    marginBottom: 12,
   },
   registerButton: {
     backgroundColor: '#106d3e',

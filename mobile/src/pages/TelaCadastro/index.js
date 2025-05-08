@@ -12,6 +12,7 @@ import styles from './style';
 import { registerUser } from '../../api/services';
 import useGoogleAuth from '../../hooks/useGoogleAuth';
 import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Cadastro() {
   const [email, setEmail] = useState('');
@@ -21,6 +22,9 @@ export default function Cadastro() {
   const [validatedPassword, setValidatedPassword] = useState(false)
   const [validatedConfirmPassword, setValidatedConfirmPassword] = useState(false)
   const [msg, setMsg] = useState('')
+
+  const [viewPassword, setViewPassword] = useState(true)
+  const [viewConfirmPassword, setViewConfirmPassword] = useState(true)
 
   const navigation = useNavigation()
 
@@ -95,31 +99,45 @@ export default function Cadastro() {
         <Text style={styles.subtitle}>Criar conta</Text>
       </View>
 
-      <TextInput
-        style={styles.inputFull}
-        placeholder="Email"
-        placeholderTextColor="#132e209e"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.inputFull}
-        placeholder="Senha"
-        placeholderTextColor="#132e209e"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry={true}
-      />
-      <TextInput
-        style={styles.inputFull}
-        placeholder="Confirme sua senha"
-        placeholderTextColor="#132e209e"
-        secureTextEntry={true}
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-      />
+      <View style={styles.areaInput}>
+        <TextInput
+          style={styles.inputFull}
+          placeholder="Email"
+          placeholderTextColor="#132e209e"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+      </View>
+
+      <View style={styles.areaInput}>
+        <TextInput
+          style={styles.inputFull}
+          placeholder="Senha"
+          placeholderTextColor="#132e209e"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={viewPassword}
+        />
+        <TouchableOpacity style={{ position: 'absolute', right: 15 }} onPress={() => setViewPassword(!viewPassword)}>
+          <FontAwesome name={viewPassword ? 'eye-slash' : 'eye'} size={25} color={'#132e209e'} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.areaInput}>
+        <TextInput
+          style={styles.inputFull}
+          placeholder="Confirme sua senha"
+          placeholderTextColor="#132e209e"
+          secureTextEntry={viewConfirmPassword}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+        />
+        <TouchableOpacity style={{ position: 'absolute', right: 15 }} onPress={() => setViewConfirmPassword(!viewConfirmPassword)}>
+          <FontAwesome name={viewConfirmPassword ? 'eye-slash' : 'eye'} size={25} color={'#132e209e'} />
+        </TouchableOpacity>
+      </View>
       {msg ? <Text style={{ color: 'red', marginVertical: 5 }}>{msg}</Text> : null}
 
 
