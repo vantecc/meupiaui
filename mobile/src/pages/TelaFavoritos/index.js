@@ -74,7 +74,7 @@ export default function TelaFavoritos() {
               name={item.name}
               category={item.category_name}
               image={{ uri: item.image }}
-              rating={4}
+              rating={5}
               idponto={item.point}
               initialBookmarked={true}
               onChangeCard={() => loadPointsFavorites()}

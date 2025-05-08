@@ -38,7 +38,7 @@ export default function SearchPage() {
                 name={item.name}
                 category={item.category_name}
                 image={{ uri: item.image }}
-                rating={4}
+                rating={5}
                 idponto={item.id}
               />
             ))}

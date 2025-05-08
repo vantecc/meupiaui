@@ -160,7 +160,7 @@ export default function DashboardScreen() {
                 name={item.name}
                 category={item.category_name}
                 image={{uri: item.image}}
-                rating={4}
+                rating={5}
                 idponto={item.id}
                 onToggleFavorite={() => setRefreshPoints(prev => !prev)}
               />
