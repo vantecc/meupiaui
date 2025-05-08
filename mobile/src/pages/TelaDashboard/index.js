@@ -23,6 +23,7 @@ export default function DashboardScreen() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([])
   const [points, setPoints] = useState([])
+  const [refreshPoints, setRefreshPoints] = useState(false);
 
   const navigation = useNavigation();
 
@@ -44,13 +45,14 @@ export default function DashboardScreen() {
     saveCategories();
   }, [])
 
+  
+
   useFocusEffect(
     useCallback(() => {
-      async function savePoints() {
-
-        const token = await AsyncStorage.getItem("userToken")
-        if(!token) {
-          console.log('Token não foi encontrado')
+      const fetchPoints = async () => {
+        const token = await AsyncStorage.getItem("userToken");
+        if (!token) {
+          console.log('Token não foi encontrado');
           return;
         }
   
@@ -58,10 +60,13 @@ export default function DashboardScreen() {
         if (Array.isArray(result)) {
           setPoints(result);
         }
-      }
-      savePoints();
-    }, [])
+      };
+  
+      fetchPoints(); // chama dentro da função síncrona
+    }, [refreshPoints])
   )
+
+  
 
 
   return (
@@ -136,6 +141,7 @@ export default function DashboardScreen() {
                 image={{uri: item.image}}
                 rating={4}
                 idponto={item.id}
+                onToggleFavorite={() => setRefreshPoints(prev => !prev)}
               />
             ))}
           </ScrollView>

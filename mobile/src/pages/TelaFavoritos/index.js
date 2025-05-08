@@ -28,20 +28,33 @@ export default function TelaFavoritos() {
     }, [])
   )
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
+      async function loadPointsFavorites() {
+        if (!token) {
+          console.log('token não encontrado')
+          return;
+        }
+
+        const response = await getFavorites(token);
+        console.log('favoritos', response)
+        setFavorites(response);
+      }
+  
+  
+      loadPointsFavorites();
+    }, [token]))
+
     async function loadPointsFavorites() {
       if (!token) {
         console.log('token não encontrado')
         return;
       }
+
       const response = await getFavorites(token);
-      console.log('favoritos', response.data)
+      console.log('favoritos', response)
       setFavorites(response);
     }
-
-
-    loadPointsFavorites();
-  }, [token])
 
 
   return (
@@ -63,6 +76,8 @@ export default function TelaFavoritos() {
               image={{ uri: item.image }}
               rating={4}
               idponto={item.point}
+              initialBookmarked={true}
+              onChangeCard={() => loadPointsFavorites()}
             />
           ))}
         </View>

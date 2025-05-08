@@ -9,11 +9,12 @@ import { goDetails } from '../../api/services';
 import { setFavorite, deleteFavorite } from '../../api/favorites';
 import { useCallback, useState, useEffect } from 'react';
 
-export default function AttractionCard({ item, name, category, image, rating, idponto}) {
+export default function AttractionCard({ item, name, category, image, rating, idponto, onChangeCard, onToggleFavorite}) {
   const navigation = useNavigation();
   const [token, setToken] = useState(null)
   const [bookmarked, setBookmarked] = useState(false)
   const [favoriteId, setFavoriteId] = useState(null);
+  const [update, setUpdate] = useState(false)
 
   useFocusEffect(
     useCallback(() => {
@@ -31,13 +32,13 @@ export default function AttractionCard({ item, name, category, image, rating, id
 
   useEffect(() => {
     async function hasFavorite() {
-      if(!token) {
+      if (!token) {
         console.log('Token nao existe')
         return;
       }
 
       try {
-        const response = await api.get(`/has-favorite/?point=${item.id}`, {
+        const response = await api.get(`/has-favorite/?point=${idponto}`, {
           headers: {
             Authorization: `Token ${token}`
           }
@@ -51,7 +52,9 @@ export default function AttractionCard({ item, name, category, image, rating, id
     }
 
     hasFavorite()
-  }, [item.id, token])
+  }, [item, idponto, token, update])
+
+  
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -79,7 +82,7 @@ export default function AttractionCard({ item, name, category, image, rating, id
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.category}>{favoriteId}</Text>
+        <Text style={styles.category}>{category}</Text>
         <View style={styles.bottomRow}>
           {renderStars(rating)}
 
@@ -88,12 +91,16 @@ export default function AttractionCard({ item, name, category, image, rating, id
               await deleteFavorite(favoriteId, token)
               setBookmarked(false)
               setFavoriteId(null)
+              onChangeCard && onChangeCard();
+              onToggleFavorite?.();
             } else {
               const fav = await setFavorite(idponto, token)
               if (fav && fav.data && fav.id) {
                 setFavoriteId(fav.data.id)
+                onToggleFavorite?.();
               }
               setBookmarked(true)
+              setUpdate(!update)
             }
           }}>
             <FontAwesome
