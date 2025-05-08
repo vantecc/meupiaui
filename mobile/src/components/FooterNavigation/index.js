@@ -1,14 +1,20 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useContext,
+} from 'react';
 import {
   View,
   TouchableOpacity,
   Text,
   Animated,
-  Easing,
   Image,
 } from 'react-native';
 import styles from './style';
 import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
+import { CompassContext } from './Compass/index';
+
 
 export default function FooterNavigation() {
   const navigation = useNavigation();
@@ -20,20 +26,7 @@ export default function FooterNavigation() {
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const portaAnim = useRef(new Animated.Value(0)).current;
-  const compassAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    const spin = () => {
-      compassAnim.setValue(0);
-      Animated.timing(compassAnim, {
-        toValue: 1,
-        duration: 15000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }).start(() => spin());
-    };
-    spin();
-  }, []);
+  const compassAnim = useContext(CompassContext);
 
   const animateIn = () => {
     Animated.parallel([
