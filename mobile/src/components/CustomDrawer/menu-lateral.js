@@ -13,15 +13,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
 import api from '../../api/auth';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CustomDrawer(props) {
   const [profile, setProfile] = useState(null);
+  const navigation = useNavigation();
 
-  
+
 
   useEffect(() => {
     async function getProfile() {
-      
+
       try {
         const savedToken = await AsyncStorage.getItem('userToken')
         if (!savedToken) {
@@ -37,7 +39,10 @@ export default function CustomDrawer(props) {
         console.log(response.data)
         setProfile(response.data)
       } catch (error) {
-        alert('Erro ao buscar perfil')
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'initial' }],
+        });
       }
     }
 
@@ -48,7 +53,7 @@ export default function CustomDrawer(props) {
     <View style={{ flex: 1, backgroundColor: '#fafefc' }}>
       <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 }}>
         <View style={styles.drawerContent}>
-          {profile ? 
+          {profile ?
             <Image
               style={styles.imageProfile}
               source={{
@@ -59,9 +64,9 @@ export default function CustomDrawer(props) {
               <FontAwesome name="user-circle" size={80} color="#2b7a4b" />
             </View>
           }
-          
 
-          <Text style={styles.profileName}>Olá, {profile? profile[0].first_name + ' ' + profile[0].last_name : 'Samuel'}</Text>
+
+          <Text style={styles.profileName}>Olá, {profile ? profile[0].first_name + ' ' + profile[0].last_name : 'Samuel'}</Text>
 
           <DrawerItemList {...props} labelStyle={styles.labelStyle} />
         </View>

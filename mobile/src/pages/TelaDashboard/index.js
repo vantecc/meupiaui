@@ -44,7 +44,7 @@ export default function DashboardScreen() {
       }
     }
     saveCategories();
-  }, [])
+  }, [points])
 
   async function searchResult(search) {
     token = await AsyncStorage.getItem('userToken')

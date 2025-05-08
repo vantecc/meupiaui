@@ -19,10 +19,12 @@ export default StyleSheet.create({
   scrollContainer: {
     paddingHorizontal: 16,
     paddingBottom: 90,
+
   },
   cardList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: 25,
     justifyContent: 'space-between',
   },
   card: {

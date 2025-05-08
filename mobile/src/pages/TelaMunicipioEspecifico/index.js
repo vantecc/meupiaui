@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import {
   View,
   TextInput,
@@ -13,7 +13,7 @@ import getCities from '../../api/city';
 import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../api/auth';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 
 
@@ -45,19 +45,22 @@ const TelaMunicipioEspecifico = () => {
     }
   }
 
-  useEffect(() => {
-    async function loadCities(params) {
+  useFocusEffect(
+    useCallback(() => {
+    
+    async function loadCities() {
       try {
         const result = await getCities()
         setCities(result)
+        console.log('cidades carregada com sucesso')
       } catch (error) {
         console.log('erro')
       }
 
     }
-
     loadCities()
-  }, [])
+    }, [])
+  )
 
   const [searchText, setSearchText] = useState('');
 
