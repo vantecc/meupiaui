@@ -85,7 +85,7 @@ export default function Cadastro() {
       Alert.alert("Cadastro realizado com sucesso!");
       navigation.navigate('login');
     } else {
-      Alert.alert("Erro ao cadastrar", res?.data?.error || 'Tente novamente mais tarde.');
+      Alert.alert(res?.status);
     }
   }
 

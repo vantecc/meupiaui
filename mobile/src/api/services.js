@@ -98,11 +98,12 @@ export async function registerUser(username, email, password) {
         if (response.status === 201) {
             return response;
         } else {
-            alert('Erro ao registrar', response?.data?.error || 'Erro desconhecido.');
+            alert('Erro ao registrar else', response.status);
         }
     } catch (error) {
         const errMsg = error?.response?.data?.error || 'Falha ao registrar usuário.';
-        alert('Erro ao registrar', errMsg);
+        alert('Erro ao registrar catch', errMsg);
+        
         return null;
     }
 }
