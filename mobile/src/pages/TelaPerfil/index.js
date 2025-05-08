@@ -66,7 +66,7 @@ export default function TelaPerfil() {
                 source={
                     selectedImage
                     ? { uri: selectedImage.uri }
-                    : require('../../assets/smiling.png')
+                    : require('../../assets/profile-fake.png')
                 }
                 style={styles.profileImage}
               />
