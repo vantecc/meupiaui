@@ -116,6 +116,8 @@ export default StyleSheet.create({
   },
   actionButton: {
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
   },
   actionText: {
     marginTop: 4,

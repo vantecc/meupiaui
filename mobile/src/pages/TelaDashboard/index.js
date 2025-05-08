@@ -17,6 +17,7 @@ import { getCategories, getTouristPoints } from '../../api/services';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchBar from '../../components/SearchBar';
+import api from '../../api/auth';
 
 
 export default function DashboardScreen() {
@@ -44,6 +45,27 @@ export default function DashboardScreen() {
     }
     saveCategories();
   }, [])
+
+  async function searchResult(search) {
+    token = await AsyncStorage.getItem('userToken')
+    if(!token) {
+      console.log('Falha ao carregar token')
+      return;
+    }
+
+    try {
+      const searchTerm = encodeURIComponent(search);
+      const response = await api.get(`/search/?category=${searchTerm}`, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+      console.log('PEsquisa:',response.data)
+      navigation.navigate('search', {item: response.data, searchResult: search})
+    } catch (error) {
+      console.log('Erro ao buscar')
+    }
+  }
 
   
 
@@ -81,11 +103,10 @@ export default function DashboardScreen() {
         </View>
         <View style={styles.headerOverlay}>
           <View style={styles.headerContent}>
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <FontAwesome name="bars" size={24} color="#fff" />
+            <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{position: 'absolute', top: -5, left: 15,}}>
+              <FontAwesome name="bars" size={34} color="#fff" />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>MeuPiauí</Text>
-            <FontAwesome name="bell" size={20} color="#fff" />
           </View>
         </View>
       </View>
@@ -106,7 +127,7 @@ export default function DashboardScreen() {
             style={styles.categories}
           >
             {categories.map((cat, index) => (
-              <TouchableOpacity key={index} style={styles.categoryBadge}>
+              <TouchableOpacity key={index} style={styles.categoryBadge} onPress={() => searchResult(cat.name)}>
                 <Text style={styles.categoryText}>{cat.name}</Text>
               </TouchableOpacity>
             ))}

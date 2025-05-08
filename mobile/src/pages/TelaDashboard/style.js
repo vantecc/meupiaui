@@ -33,7 +33,7 @@ export default StyleSheet.create({
   },
   headerContent: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
