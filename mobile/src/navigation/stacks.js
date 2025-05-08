@@ -36,7 +36,7 @@ export default function AppStack() {
   }
 
   return (
-    <CompassProvider> {/* 👈 aqui você envolve TUDO */}
+    <CompassProvider> 
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={isLogged ? 'home' : 'initial'}
