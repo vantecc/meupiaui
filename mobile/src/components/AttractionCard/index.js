@@ -6,13 +6,14 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../api/auth';
 import { goDetails } from '../../api/services';
-import { setFavorite } from '../../api/favorites';
+import { setFavorite, deleteFavorite } from '../../api/favorites';
 import { useCallback, useState, useEffect } from 'react';
 
-export default function AttractionCard({ item, name, category, image, rating}) {
+export default function AttractionCard({ item, name, category, image, rating, idponto}) {
   const navigation = useNavigation();
   const [token, setToken] = useState(null)
   const [bookmarked, setBookmarked] = useState(false)
+  const [favoriteId, setFavoriteId] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -43,6 +44,7 @@ export default function AttractionCard({ item, name, category, image, rating}) {
         })
 
         setBookmarked(response.data.is_favorite)
+        setFavoriteId(response.data.id_favorite)
       } catch (e) {
         console.log('erro ao atualizar favorito!')
       }
@@ -77,11 +79,23 @@ export default function AttractionCard({ item, name, category, image, rating}) {
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.category}>{category}</Text>
+        <Text style={styles.category}>{favoriteId}</Text>
         <View style={styles.bottomRow}>
           {renderStars(rating)}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={async () => {
+            if (bookmarked && favoriteId) {
+              await deleteFavorite(favoriteId, token)
+              setBookmarked(false)
+              setFavoriteId(null)
+            } else {
+              const fav = await setFavorite(idponto, token)
+              if (fav && fav.data && fav.id) {
+                setFavoriteId(fav.data.id)
+              }
+              setBookmarked(true)
+            }
+          }}>
             <FontAwesome
               name={bookmarked ? 'bookmark' : 'bookmark-o'}
               size={30}

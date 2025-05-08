@@ -75,9 +75,9 @@ export default function TelaPerfil() {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.name}>Adelaide Monteiro</Text>
+            <Text style={styles.name}>Seu nome</Text>
             <Text style={styles.subtitle}>Edite suas informações</Text>
-            <Text style={styles.email}>adelaide.monteiro@meupiaui.com</Text>
+            <Text style={styles.email}>Este perfil servirá para identificá-lo em suas interações no app.</Text>
 
             <View style={styles.inputs}>
               <TextInput
@@ -91,12 +91,6 @@ export default function TelaPerfil() {
                 placeholder="Sobrenome"
                 placeholderTextColor="#132e209e"
                 onChangeText={setLastName}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Email"
-                placeholderTextColor="#132e209e"
-                secureTextEntry
               />
             </View>
           </View>

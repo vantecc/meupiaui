@@ -74,12 +74,13 @@ export default StyleSheet.create({
   subtitle: {
     fontSize: 17,
     color: '#1a2821',
-    marginBottom: 4,
+    marginBottom: 15,
   },
   email: {
     fontSize: 15,
     color: '#132e2099',
-    marginBottom: 20,
+    marginBottom: 35,
+    textAlign: 'center'
   },
 
   inputs: {

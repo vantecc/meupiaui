@@ -34,6 +34,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
     longitude = serializers.CharField(source='point.longitude', read_only=True)
     description = serializers.CharField(source='point.description', read_only=True)
     image = serializers.SerializerMethodField()
+    user = serializers.PrimaryKeyRelatedField(read_only=True) 
 
     class Meta:
         model = Favorite

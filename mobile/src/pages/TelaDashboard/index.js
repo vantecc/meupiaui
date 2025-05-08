@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import styles from './style';
+import { useFocusEffect } from '@react-navigation/native';
 import AttractionCard from '../../components/AttractionCard';
 import FooterNavigation from '../../components/FooterNavigation';
 import img1 from '../../assets/serracapi.png';
@@ -43,22 +44,24 @@ export default function DashboardScreen() {
     saveCategories();
   }, [])
 
-  useEffect(() => {
-    async function savePoints() {
+  useFocusEffect(
+    useCallback(() => {
+      async function savePoints() {
 
-      const token = await AsyncStorage.getItem("userToken")
-      if(!token) {
-        console.log('Token não foi encontrado')
-        return;
+        const token = await AsyncStorage.getItem("userToken")
+        if(!token) {
+          console.log('Token não foi encontrado')
+          return;
+        }
+  
+        const result = await getTouristPoints(token);
+        if (Array.isArray(result)) {
+          setPoints(result);
+        }
       }
-
-      const result = await getTouristPoints(token);
-      if (Array.isArray(result)) {
-        setPoints(result);
-      }
-    }
-    savePoints();
-  }, [])
+      savePoints();
+    }, [])
+  )
 
 
   return (
@@ -132,6 +135,7 @@ export default function DashboardScreen() {
                 category={item.category_name}
                 image={{uri: item.image}}
                 rating={4}
+                idponto={item.id}
               />
             ))}
           </ScrollView>

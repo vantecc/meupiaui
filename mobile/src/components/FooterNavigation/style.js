@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
   
   centerButtonWrapper: {
-    marginTop: -90,
+    marginTop: -50,
     borderRadius: 80,
     borderLeftWidth: 1,
     borderBottomWidth: 1,

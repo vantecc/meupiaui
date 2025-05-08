@@ -14,7 +14,7 @@ export async function getFavorites(token) {
     }
 }
 
-export async function setFavorite(token, itemId) {
+export async function setFavorite(itemId, token) {
     try {
         const response = await api.post('/favorites/', {point: itemId}, {
             headers: {
@@ -23,6 +23,19 @@ export async function setFavorite(token, itemId) {
         })
         console.log('Item Favoritado!')
     } catch (e) {
-        console.log('Erro ao favoritar item')
+        console.log('Erro ao favoritar item', e)
+    }
+}
+
+export async function deleteFavorite(itemId, token) {
+    try {
+        const response = await api.delete(`/favorites/${itemId}/`,{
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        })
+        console.log('Item deletado')
+    } catch (e) {
+        console.log('Erro ao deletar item')
     }
 }

@@ -53,10 +53,11 @@ class HasFavorite(APIView):
         
 
         if point_id:
-            is_favorite = Favorite.objects.filter(user=request.user, point=point_id).exists()
+            favorite = Favorite.objects.filter(user=request.user, point=point_id).first()
             
             return JsonResponse({
-                "is_favorite": is_favorite
+                "is_favorite": bool(favorite),
+                "id_favorite": favorite.id if favorite else None
             })
 
 

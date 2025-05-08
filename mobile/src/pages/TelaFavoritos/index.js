@@ -62,6 +62,7 @@ export default function TelaFavoritos() {
               category={item.category_name}
               image={{ uri: item.image }}
               rating={4}
+              idponto={item.point}
             />
           ))}
         </View>

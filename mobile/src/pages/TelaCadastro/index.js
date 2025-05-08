@@ -32,7 +32,6 @@ export default function Cadastro() {
   const socialOptions = [
     { provider: 'Facebook', bg: '#3a63ed', textColor: '#fff' },
     { provider: 'Google', bg: '#ffffff', textColor: '#1a2821', border: true },
-    { provider: 'Apple', bg: '#106d3e', textColor: '#fff' },
   ];
 
   return (

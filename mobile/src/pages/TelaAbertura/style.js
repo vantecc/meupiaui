@@ -43,19 +43,19 @@ export default StyleSheet.create({
   },
   connectButton: {
     backgroundColor: '#106d50',
-    height: 55,
+    height: 65,
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   connectText: {
     color: '#f0f0f0',
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   registerButton: {
-    backgroundColor: '#FFD700',
-    height: 55,
+    backgroundColor: 'transparent',
+    height: 65,
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,7 +64,7 @@ export default StyleSheet.create({
   },
   registerText: {
     color: '#106d50',
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
   },
 });

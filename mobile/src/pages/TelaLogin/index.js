@@ -24,13 +24,11 @@ export default function Login() {
   const socialIcons = {
     Facebook: require('../../assets/facebook.png'),
     Google: require('../../assets/google.png'),
-    Apple: require('../../assets/apple.png'),
   };
 
   const buttonTextColor = {
     Facebook: '#ffffff',
     Google: '#1a2821',
-    Apple: '#ffffff',
   };
 
   return (
@@ -71,7 +69,7 @@ export default function Login() {
         </View>
 
         <View style={styles.socialArea}>
-          {['Facebook', 'Google', 'Apple'].map((provider, i) => (
+          {['Facebook', 'Google',].map((provider, i) => (
             <TouchableOpacity
               key={i}
               style={[styles.socialButton, styles[`btn${provider}`]]}
