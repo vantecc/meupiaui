@@ -9,8 +9,8 @@ from django.http import JsonResponse
 import json
 from rest_framework import status
 from .models import TouristPoint, City, Favorite, Category, Profile
-from .serializers import TouristPointSerializer, CitySerializer, FavoriteSerializer, CategorySerializer, ProfileSerializer
-from asgiref.sync import sync_to_async
+from .serializers import TouristPointSerializer, CitySerializer, FavoriteSerializer, CategorySerializer, ProfileSerializer, RegisterSerializer
+
 
 # Create your views here.
 
@@ -93,32 +93,21 @@ class ExistProfileView(APIView):
         has_profile = Profile.objects.filter(user=request.user).exists();
         return JsonResponse({'has_profile': has_profile})
 
-@csrf_exempt
-async def register_view(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data['username'] 
-            email = data['email']        
-            password = data['password'] 
+class RegisterView(APIView):
+    permission_classes = [AllowAny]
 
-            if not username or not password:
-                return JsonResponse({'error': 'Username e senha são obrigatórios!'}, status=400)
-            
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
 
-            user_exists = await sync_to_async(User.objects.filter(username=username).exists)()
+        if serializer.is_valid():
+            user = serializer.save() 
 
-            if user_exists:
-                return JsonResponse({'error': 'Usuário já existe!'}, status=400)
+            return JsonResponse(
+                {'message': 'Usuário registrado com sucesso!', 'user': user.username},
+                status=status.HTTP_201_CREATED
+            )
 
-            user = await sync_to_async(User.objects.create_user)(username=username, email=email, password=password)
-
-            return JsonResponse({'message': 'Usuário registrado com sucesso!', 'user': user.username})
-
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-        
-    return JsonResponse({'error': 'Método não permitido'}, status=405)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomObtainAuthToken(APIView):
     permission_classes = [AllowAny]

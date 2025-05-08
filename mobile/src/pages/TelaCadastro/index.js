@@ -39,7 +39,7 @@ export default function Cadastro() {
     { provider: 'Google', bg: '#ffffff', textColor: '#1a2821', border: true },
   ];
 
-  
+
   useEffect(() => {
     if (email.includes('@')) {
       setValidatedEmail(true)
@@ -75,18 +75,13 @@ export default function Cadastro() {
       alert("Por favor, preencha seus dados corretamente.");
       return;
     }
-  
-    try {
-      const res = await registerUser(email, email, password);
-      if (res?.status === 201) {
-        Alert.alert("Cadastro realizado com sucesso!");
-        navigation.navigate('login'); // ou outra tela
-      } else {
-        Alert.alert("Erro ao cadastrar", res?.data?.error || 'Tente novamente mais tarde.');
-      }
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Erro ao cadastrar", "Verifique sua conexão ou tente novamente.");
+
+    const res = await registerUser(email, email, password);
+    if (res?.status === 201) {
+      Alert.alert("Cadastro realizado com sucesso!");
+      navigation.navigate('login');
+    } else {
+      Alert.alert("Erro ao cadastrar", res?.data?.error || 'Tente novamente mais tarde.');
     }
   }
 
@@ -128,8 +123,8 @@ export default function Cadastro() {
       {msg ? <Text style={{ color: 'red', marginVertical: 5 }}>{msg}</Text> : null}
 
 
-      <TouchableOpacity style={styles.registerButton}>
-        <Text style={styles.registerText} onPress={handleRegister}>Cadastrar</Text>
+      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+        <Text style={styles.registerText} >Cadastrar</Text>
       </TouchableOpacity>
 
       <Text style={styles.terms}>

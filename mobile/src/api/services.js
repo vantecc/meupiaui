@@ -90,36 +90,43 @@ export async function registerUser(username, email, password) {
         return;
     }
 
-    const data =  { username, email, password }
+    const data = { username, email, password }
 
     try {
         const response = await api.post('/register/', data)
-        alert('Usuário registrado com sucesso!')
+
+        if (response.status === 201) {
+            return response;
+        } else {
+            Alert.alert('Erro ao registrar', response?.data?.error || 'Erro desconhecido.');
+        }
     } catch (error) {
-        alert('Falha ao registrar usuário.')
+        const errMsg = error?.response?.data?.error || 'Falha ao registrar usuário.';
+        Alert.alert('Erro ao registrar', errMsg);
+        return null;
     }
 }
 
 export async function goDetails(item, navigation) {
-    navigation.navigate('details', {item})
+    navigation.navigate('details', { item })
 
     const token = await AsyncStorage.getItem('userToken')
-    if(!token) {
-      console.log('TOKEN NÃO ENCONTRADO')
-      return;
+    if (!token) {
+        console.log('TOKEN NÃO ENCONTRADO')
+        return;
     }
 
     try {
-      const viewsPoint = item.views_point ? item.views_point + 1 : 1;
-      const response = await api.patch(`/tourist-points/${item.id}/`,
-        {views_point: viewsPoint},
-        {
-        headers: {
-          Authorization: `Token ${token}`
-        }
-      })
-      console.log('Views atualizada')
+        const viewsPoint = item.views_point ? item.views_point + 1 : 1;
+        const response = await api.patch(`/tourist-points/${item.id}/`,
+            { views_point: viewsPoint },
+            {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            })
+        console.log('Views atualizada')
     } catch (error) {
-      console.log('Erro ao atualizar vizu')
+        console.log('Erro ao atualizar vizu')
     }
-  }
+}
