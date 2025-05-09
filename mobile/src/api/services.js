@@ -108,7 +108,7 @@ export async function registerUser(username, email, password) {
     }
 }
 
-export async function goDetails(item, navigation) {
+export async function goDetails(idponto,item, navigation) {
     navigation.navigate('details', { item })
 
     const token = await AsyncStorage.getItem('userToken')
@@ -119,7 +119,7 @@ export async function goDetails(item, navigation) {
 
     try {
         const viewsPoint = item.views_point ? item.views_point + 1 : 1;
-        const response = await api.patch(`/tourist-points/${item.id}/`,
+        const response = await api.patch(`/tourist-points/${idponto}/`,
             { views_point: viewsPoint },
             {
                 headers: {

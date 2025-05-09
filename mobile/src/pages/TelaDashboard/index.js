@@ -48,7 +48,7 @@ export default function DashboardScreen() {
 
   async function searchResult(search) {
     token = await AsyncStorage.getItem('userToken')
-    if(!token) {
+    if (!token) {
       console.log('Falha ao carregar token')
       return;
     }
@@ -60,14 +60,14 @@ export default function DashboardScreen() {
           Authorization: `Token ${token}`
         }
       })
-      console.log('PEsquisa:',response.data)
-      navigation.navigate('search', {item: response.data, searchResult: search})
+      console.log('PEsquisa:', response.data)
+      navigation.navigate('search', { item: response.data, searchResult: search })
     } catch (error) {
       console.log('Erro ao buscar')
     }
   }
 
-  
+
 
   useFocusEffect(
     useCallback(() => {
@@ -77,18 +77,18 @@ export default function DashboardScreen() {
           console.log('Token não foi encontrado');
           return;
         }
-  
+
         const result = await getTouristPoints(token);
         if (Array.isArray(result)) {
           setPoints(result);
         }
       };
-  
+
       fetchPoints(); // chama dentro da função síncrona
     }, [refreshPoints])
   )
 
-  
+
 
 
   return (
@@ -103,7 +103,7 @@ export default function DashboardScreen() {
         </View>
         <View style={styles.headerOverlay}>
           <View style={styles.headerContent}>
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{position: 'absolute', top: -5, left: 15,}}>
+            <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{ position: 'absolute', top: -5, left: 15, }}>
               <FontAwesome name="bars" size={34} color="#fff" />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>MeuPiauí</Text>
@@ -116,8 +116,8 @@ export default function DashboardScreen() {
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
       >
-        
-        <SearchBar/>
+        <SearchBar />
+
 
 
         <View style={styles.categoriesArea}>
@@ -137,13 +137,16 @@ export default function DashboardScreen() {
 
         <TouchableOpacity style={styles.exploreButton}>
           <Text style={styles.exploreText}>
-            { 'Explorar pontos turísticos'}
+            {'Explorar pontos turísticos'}
           </Text>
         </TouchableOpacity>
 
 
         <View style={styles.sectionTitle}>
           <Text style={styles.sectionTitleText}>Mais Visitados</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('viewall')}>
+            <Text style={styles.sectionTitleSub}>Ver todos</Text>
+          </TouchableOpacity>
         </View>
 
         {data.length > 0 && (
@@ -159,7 +162,7 @@ export default function DashboardScreen() {
                 key={item.id}
                 name={item.name}
                 category={item.category_name}
-                image={{uri: item.image}}
+                image={{ uri: item.image }}
                 rating={5}
                 idponto={item.id}
                 onToggleFavorite={() => setRefreshPoints(prev => !prev)}

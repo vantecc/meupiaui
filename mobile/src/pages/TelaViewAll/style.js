@@ -14,6 +14,7 @@ export default StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: '#1a2821',
+    marginLeft: 15,
   },
   scrollContainer: {
     paddingBottom: 90,

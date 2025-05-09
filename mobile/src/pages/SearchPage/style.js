@@ -17,18 +17,17 @@ export default StyleSheet.create({
     color: '#1a2821',
   },
   scrollContainer: {
-    paddingHorizontal: 16,
     paddingBottom: 90,
-
   },
   cardList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 25,
-    justifyContent: 'space-between',
+    gap: 15,
+    justifyContent: 'center',
+    width: '100%',
   },
   card: {
-    width: '48%',
+    width: '38%',
     marginBottom: 20,
     backgroundColor: '#fff',
     borderRadius: 16,

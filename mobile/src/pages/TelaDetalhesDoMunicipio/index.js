@@ -11,20 +11,28 @@ import { format, parseISO } from 'date-fns';
 export default function TelaPontoTuristicoDetalhe() {
   const [favoritado, setFavoritado] = useState(false);
   const route = useRoute();
-  const {item} = route.params;
+  const { item } = route.params;
+
+  if (!item) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{color: 'red'}}>Erro: Nenhum ponto turístico recebido.</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <ImageBackground
-        style={styles.imageGallery}
-        source={{uri: item.image}}
+          style={styles.imageGallery}
+          source={item.image ? {uri: item.image} : require('../../assets/serracapi.png')}
         >
-          
-            
-           
-          
+
+
+
+
         </ImageBackground>
 
         <View style={styles.infoContainer}>
@@ -40,7 +48,12 @@ export default function TelaPontoTuristicoDetalhe() {
 
           <View style={styles.descriptionCard}>
             <View style={styles.descriptionTextBox}>
-              <Text style={styles.descriptionDate}>📅 {format(parseISO(item.created_at), 'dd/MM/yyyy')}</Text>
+              {item.created_at && (
+                <Text style={styles.descriptionDate}>
+                  📅 {format(parseISO(item.created_at), 'dd/MM/yyyy')}
+                </Text>
+              )}
+
               <Text style={styles.descriptionText}>
                 {item.description}
               </Text>
@@ -63,11 +76,11 @@ export default function TelaPontoTuristicoDetalhe() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.actionButton}>
-          <View style={{flexDirection: 'row', alignItems: 'center',gap: 10,}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, }}>
             <FontAwesome name="eye" size={20} color="#1a2821" />
             <Text style={styles.actionText}>{item.views_point}</Text>
           </View>
-          
+
           <Text style={styles.actionText}>Visualizações</Text>
         </TouchableOpacity>
       </View>

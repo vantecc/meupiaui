@@ -10,7 +10,7 @@ export default StyleSheet.create({
     backgroundColor: '#fafefc',
   },
   contentContainer: {
-    paddingTop: 40,
+    paddingTop: 20,
     paddingBottom: 115,
   },
   headerContainer: {
@@ -86,9 +86,17 @@ export default StyleSheet.create({
   sectionTitle: {
     paddingHorizontal: 20,
     marginBottom: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   sectionTitleText: {
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1b5e20',
+  },
+  sectionTitleSub: {
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#1b5e20',
   },

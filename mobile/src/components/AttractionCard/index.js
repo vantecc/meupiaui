@@ -78,7 +78,7 @@ export default function AttractionCard({ item, name, category, image, rating, id
 
 
   return (
-    <TouchableOpacity style={styles.card} onPress={() => goDetails(item, navigation)}>
+    <TouchableOpacity style={styles.card} onPress={() => goDetails(idponto, item, navigation)}>
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>

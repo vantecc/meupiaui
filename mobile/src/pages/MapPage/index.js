@@ -68,7 +68,6 @@ export default function MapScreen() {
             key={index}
             coordinate={{ latitude: item.latitude, longitude: item.longitude }}
             title={item.name}
-            description={item.description}
           />
           ))}
         </MapView> :

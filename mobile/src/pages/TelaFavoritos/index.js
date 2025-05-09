@@ -7,6 +7,7 @@ import FooterNavigation from '../../components/FooterNavigation';
 import { getFavorites } from '../../api/favorites';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AttractionCard from '../../components/AttractionCard';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function TelaFavoritos() {
   const [token, setToken] = useState(null)
@@ -67,7 +68,7 @@ export default function TelaFavoritos() {
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.cardList}>
-          {favorites.map((item, index) => (
+          {favorites.length > 0?favorites.map((item, index) => (
             <AttractionCard
               item={item}
               key={item.id}
@@ -79,7 +80,11 @@ export default function TelaFavoritos() {
               initialBookmarked={true}
               onChangeCard={() => loadPointsFavorites()}
             />
-          ))}
+          )) : 
+            <View style={{flexDirection: 'row',gap: 15, marginHorizontal: 20, justifyContent: 'center', alignItems: 'center', marginTop: 200,}}>
+              <FontAwesome name='frown-o' color='#1b5e20' size={35}/>
+              <Text style={{color: '#1b5e20', fontSize: 20, fontWeight: 'bold'}}>Você ainda não favoritou nenhum ponto turístico...</Text>
+            </View>}
         </View>
       </ScrollView>
       <FooterNavigation />
