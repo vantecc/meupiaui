@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/meupiauilogo.png",
         "backgroundColor": "#ffffff"
       },
       "config": {
