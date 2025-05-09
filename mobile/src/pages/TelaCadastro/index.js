@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, ScrollView, Alert, } from 'react-native';
 import styles from './style';
 import { registerUser } from '../../api/services';
-import useGoogleAuth from '../../hooks/useGoogleAuth';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -27,22 +18,6 @@ export default function Cadastro() {
   const [viewConfirmPassword, setViewConfirmPassword] = useState(true)
 
   const navigation = useNavigation()
-
-  const { loginWithGooglePrompt } = useGoogleAuth(navigation);
-
-
-
-  const socialIcons = {
-    Facebook: require('../../assets/facebook.png'),
-    Google: require('../../assets/google.png'),
-    Apple: require('../../assets/apple.png'),
-  };
-
-  const socialOptions = [
-    { provider: 'Facebook', bg: '#3a63ed', textColor: '#fff' },
-    { provider: 'Google', bg: '#ffffff', textColor: '#1a2821', border: true },
-  ];
-
 
   useEffect(() => {
     if (email.includes('@')) {

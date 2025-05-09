@@ -1,12 +1,11 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
+
+import { View, Text, ScrollView} from 'react-native';
 import styles from './style';
 import BackButton from '../../components/BackButton';
 import FooterNavigation from '../../components/FooterNavigation';
 import SearchBar from '../../components/SearchBar';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
-import { goDetails } from '../../api/services';
 import AttractionCard from '../../components/AttractionCard';
 
 

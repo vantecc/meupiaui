@@ -1,6 +1,4 @@
-// src/pages/TelaAbertura/index.js
 
-import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
@@ -9,7 +7,7 @@ export default function TelaAbertura({ navigation }) {
     <View style={styles.container}>
       <View style={styles.card}>
 
-        {/* Logo */}
+        
         <View style={styles.logoContainer}>
           <Image
             source={require('../../assets/meupiaui1.png')}
@@ -18,12 +16,12 @@ export default function TelaAbertura({ navigation }) {
           />
         </View>
 
-        {/* Frase */}
+        
         <Text style={styles.tagline}>
           Descubra o Piauí do seu jeito.
         </Text>
 
-        {/* Botões */}
+        
         <View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.connectButton}

@@ -3,9 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, ActivityInd
 import styles from './style';
 import BackButton from '../../components/BackButton';
 import { Ionicons } from '@expo/vector-icons';
-import { launchImageLibrary } from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
-import { createProfile } from '../../api/services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../api/auth';
@@ -109,38 +107,19 @@ export default function PerfilInfo() {
               <Text style={styles.name}>
                 {profile && profile[0].first_name ? profile[0].first_name : 'Nome'}
               </Text>
-              {/* <Text style={styles.subtitle}>Edite suas informações</Text> */}
+              
               <Text style={styles.email}>
                 {profile && profile[0].email ? profile[0].email : 'Insira seu email'}
               </Text>
 
               <View style={styles.inputs}>
-                {/* <TextInput
-                style={styles.input}
-                placeholder="Nome"
-                placeholderTextColor="#132e209e"
-                onChangeText={setFirstName}
-              /> */}
-                {/* <TextInput
-                style={styles.input}
-                placeholder="Sobrenome"
-                placeholderTextColor="#132e209e"
-                onChangeText={setLastName}
-              /> */}
-                {/* <TextInput
-                style={styles.input}
-                placeholder="Email"
-                placeholderTextColor="#132e209e"
-                secureTextEntry
-              /> */}
+                
               </View>
             </View>
           </View>
 
           <View style={styles.footerButtons}>
-            {/* <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token)}>
-            <Text style={styles.buttonText}>Salvar alterações</Text>
-          </TouchableOpacity> */}
+            
 
             <TouchableOpacity style={styles.button} onPress={logout}>
               <Text style={styles.buttonText}>Sair da conta</Text>

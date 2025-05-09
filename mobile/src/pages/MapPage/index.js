@@ -2,7 +2,6 @@ import { View, StyleSheet, ActivityIndicator,SafeAreaView } from "react-native";
 import MapView, { Marker } from 'react-native-maps'
 import { useState, useEffect, useCallback } from "react";
 import * as Location from 'expo-location'
-import FooterNavigation from "../../components/FooterNavigation";
 import BackButton from "../../components/BackButton";
 import { getTouristPoints } from "../../api/services";
 import { useFocusEffect } from "@react-navigation/native";
@@ -51,6 +50,7 @@ export default function MapScreen() {
       {location && pointLocation ?
         <MapView
           style={styles.map}
+          provider="google"
           initialRegion={{
             latitude: location.latitude,
             longitude: location.longitude,

@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  Image,
+  View, Text, ScrollView, TouchableOpacity, Image,
 } from 'react-native';
 import styles from './style';
 import { useFocusEffect } from '@react-navigation/native';
@@ -84,7 +79,7 @@ export default function DashboardScreen() {
         }
       };
 
-      fetchPoints(); // chama dentro da função síncrona
+      fetchPoints();
     }, [refreshPoints])
   )
 
