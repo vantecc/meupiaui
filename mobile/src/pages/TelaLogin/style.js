@@ -37,7 +37,6 @@ export default StyleSheet.create({
   
   registerLink: {
     alignSelf: 'flex-end',
-    marginBottom: 16,
   },
   registerText: {
     color: '#106d3e',
@@ -45,7 +44,13 @@ export default StyleSheet.create({
   },
   card: {
     width: '100%',
-    gap: 16,
+    gap: 20,
+  },
+  subtitle: {
+    fontSize: 22,
+    fontWeight: '600',
+    color: '#1a2827',
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#247e5117',
@@ -86,6 +91,7 @@ export default StyleSheet.create({
     backgroundColor: '#106d3e',
     paddingVertical: 13,
     borderRadius: 999,
+    marginTop: 30,
     alignItems: 'center',
   },
   loginButtonText: {

@@ -151,27 +151,7 @@ export default function Cadastro() {
       </Text>
 
       <View style={styles.socialArea}>
-        {socialOptions.map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              styles.socialButton,
-              {
-                backgroundColor: option.bg,
-                borderWidth: option.border ? 1 : 0,
-                borderColor: option.border ? '#496d5b33' : 'transparent',
-              },
-            ]}
-            onPress={option.provider === 'Google' ? loginWithGooglePrompt : undefined}
-          >
-            <View style={styles.socialContent}>
-              <Image source={socialIcons[option.provider]} style={styles.socialIcon} />
-              <Text style={[styles.socialButtonText, { color: option.textColor }]}>
-                Cadastro com {option.provider}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+        
       </View>
     </ScrollView>
   );

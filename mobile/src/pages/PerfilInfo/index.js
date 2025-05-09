@@ -154,10 +154,6 @@ export default function PerfilInfo() {
       <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 15}}>
         
         <ActivityIndicator size={60} color="#1a2821" />
-        <ActivityIndicator size={30} color="#0f9d58" />
-        <ActivityIndicator size={60} color="#1a2821" />
-        <ActivityIndicator size={30} color="#0f9d58" />
-        <ActivityIndicator size={60} color="#1a2821" />
         
       </SafeAreaView>
     );

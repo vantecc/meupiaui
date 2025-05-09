@@ -42,9 +42,12 @@ export default function Login() {
           <Image source={require('../../assets/oxe.png')} style={styles.character} resizeMode="contain" />
         </View>
 
+        
+        <Text style={styles.subtitle}>Entre na sua conta</Text>
         <TouchableOpacity style={styles.registerLink} onPress={() => navigation.navigate('register')}>
           <Text style={styles.registerText}>Criar uma conta</Text>
         </TouchableOpacity>
+        
 
         <View style={styles.card}>
           <View style={styles.areaInput}>
@@ -79,19 +82,7 @@ export default function Login() {
         </View>
 
         <View style={styles.socialArea}>
-          {['Facebook', 'Google',].map((provider, i) => (
-            <TouchableOpacity
-              key={i}
-              style={[styles.socialButton, styles[`btn${provider}`]]}
-            >
-              <View style={styles.socialContent}>
-                <Image source={socialIcons[provider]} style={styles.socialIcon} />
-                <Text style={[styles.socialButtonText, { color: buttonTextColor[provider] }]}>
-                  Entrar com {provider}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+          
         </View>
       </ScrollView>
     </View>
