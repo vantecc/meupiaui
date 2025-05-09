@@ -100,10 +100,6 @@ export default function TelaPerfil() {
           <TouchableOpacity style={styles.button} onPress={() => createProfile(firstName, lastName, selectedImage, token, navigation)}>
             <Text style={styles.buttonText}>Salvar alterações</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sair da conta</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

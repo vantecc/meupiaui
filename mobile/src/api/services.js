@@ -24,7 +24,7 @@ export async function createProfile(first_name, last_name, imageObj, token, navi
         formData.append('image', {
             uri: imageObj.uri,
             name: imageObj.fileName || 'profile.jpg',
-            type: imageObj.mimeType || 'image/jpeg',
+            type: imageObj.mimeType || imageObj.type || 'image/jpeg'
         });
     }
 
@@ -38,8 +38,8 @@ export async function createProfile(first_name, last_name, imageObj, token, navi
         navigation.navigate('home');
         console.log(response.data);
     } catch (e) {
-        alert('Erro ao criar perfil.');
-        console.error(e);
+        alert('Erro ao criar perfil: ' + (e.response?.data || e.message));
+        console.log('Erro:', e.response?.data || e.message);
     }
 }
 
@@ -103,7 +103,7 @@ export async function registerUser(username, email, password) {
     } catch (error) {
         const errMsg = error?.response?.data?.error || 'Falha ao registrar usuário.';
         alert('Erro ao registrar catch', errMsg);
-        
+
         return null;
     }
 }
